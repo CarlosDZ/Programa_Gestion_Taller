@@ -46,24 +46,24 @@ public class App {
         int menu_clientes_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver todos los clientes\n2 - Nuevo cliente\n3 - Borrar cliente\n 4 - Editar cliente\n5 - Vincular coche a cliente\n6 - Ver informacion detallada de un cliente\n7 - Salir del menu de clientes");
+            System.out.println("Que quieres hacer?\n1 - Ver todos los clientes\n2 - Nuevo cliente\n3 - Borrar cliente\n 4 - Editar cliente\n5 - Vincular vehiculo a cliente\n6 - Ver informacion detallada de un cliente\n7 - Salir del menu de clientes");
             menu_clientes_opcion = scanner.nextInt();
 
             switch (menu_clientes_opcion) {
                 case 1 -> {
-                    //Taller.printAllCustomers()
+                    //Taller.printAllClientes()
                 }
                 case 2 -> {
-                    //Taller.newCustomer()
+                    //Taller.newCliente()
                 }
                 case 3 -> {
-                    //Taller.delCustomer()
+                    //Taller.delCliente()
                 }
                 case 4 -> {
                     //Cliente.edit()
                 }
                 case 5 -> {
-                    //Car.linkToCliente()
+                    //Vehiculo.linkToCliente()
                 }
                 case 6 -> {
                     //Cliente.details()
@@ -76,6 +76,80 @@ public class App {
             }
 
         } while (menu_clientes_opcion != 7);
+    }
+
+    public static void menuVehiculos(){
+        int menu_vehiculos_opcion;
+
+        do { 
+            System.out.println("Que quieres hacer?\n1 - Ver todos los vehiculos\n2 - Nuevo vehiculo\n3 - Borrar vehiculo\n 4 - Editar vehiculo\n5 - Vincular vehiculo a cliente\n6 - Ver informacion detallada de un vehiculo\n7 - Gestionar tipos de vehiculos\n8 - Gestionar fabricantes\n9 - Salir del menu de vehiculos");
+            menu_vehiculos_opcion = scanner.nextInt();
+
+            switch (menu_vehiculos_opcion) {
+                case 1 -> {
+                    //Taller.printAllVehiculos()
+                }
+                case 2 -> {
+                    //Taller.newVehiculo()
+                }
+                case 3 -> {
+                    //Taller.delVehiculo()
+                }
+                case 4 -> {
+                    //Vehiculo.edit()
+                }
+                case 5 -> {
+                    //Vehiculo.linkToCliente()
+                }
+                case 6 -> {
+                    //Vehiculo.details()
+                }
+                case 7 -> { menuTiposVehiculo(); }
+
+                case 8 -> {
+                    //menuFabricantes();
+                }
+                case 9 -> {
+                    System.out.println("Saliendo del menu de vehiculos...");
+                }
+
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 9.");
+            }
+
+        } while (menu_vehiculos_opcion != 9);
+    }
+
+    public static void menuTiposVehiculo(){
+        int menu_tipos_vehiculo_opcion;
+
+        do { 
+            System.out.println("Que quieres hacer?\n1 - Ver todos los tipos de vehiculo\n2 - Nuevo tipo de vehiculo\n3 - Borrar tipo de vehiculo\n 4 - Editar tipo de vehiculo\n5 - Ver informacion detallada de un tipo de vehiculo\n6 - Salir del menu de tipos de vehiculo");
+            menu_tipos_vehiculo_opcion = scanner.nextInt();
+
+            switch (menu_tipos_vehiculo_opcion) {
+                case 1 -> {
+                    //Taller.printAllTiposVehiculo()
+                }
+                case 2 -> {
+                    //Taller.newTipoVehiculo()
+                }
+                case 3 -> {
+                    //Taller.delTipoVehiculo()
+                }
+                case 4 -> {
+                    //TipoVehiculo.edit()
+                }
+                case 5 -> {
+                    //TipoVehiculo.details()
+                }
+                case 6 -> {
+                    System.out.println("Saliendo del menu de tipos de vehiculo...");
+                }
+
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
+            }
+
+        } while (menu_tipos_vehiculo_opcion != 6);
     }
 
 }
