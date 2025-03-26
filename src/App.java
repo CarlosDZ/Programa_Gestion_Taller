@@ -11,32 +11,25 @@ public class App {
 
         int main_menu_option;
         do { 
-            System.out.println("Que quieres hacer?\n1 - Gestionar Clientes\n2 - Gestionar Vehiculos\n3 - Gestionar Citas\n4 - Gestion de Inventario\n5 - Gestion de Pedidos\n6 - Gestion de Proveedores\n7 - Gestion de Servicios\n8 - Salir");
+            System.out.println("Que quieres hacer?\n1 - Gestionar Clientes\n2 - Gestionar Vehiculos\n3 - Gestionar Citas\n4 - Gestion de Inventario\n5 - Gestion de Pedidos\n6 - Gestion de Proveedores\n7 - Salir");
             main_menu_option = scanner.nextInt();
 
             switch (main_menu_option) {
                 case 1 -> { menuClientes(); }
                 case 2 -> { menuVehiculos(); }
-                case 3 -> {
-                    //menucitas
-                }
-                case 4 -> {
-                    //menuinventario
-                }
+                case 3 -> { menuCitas(); }
+                case 4 -> { menuInventario(); }
                 case 5 -> {
                     //menupedidos
                 }
                 case 6 -> {
                     //menuproveedores
                 }
-                case 7 -> {
-                    //menuservicios
-                }
-                case 8 -> { System.out.println("Saliendo del programa!"); }
+                case 7 -> { System.out.println("Saliendo del programa!"); }
 
-                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 8.");
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 7.");
             }
-        } while (main_menu_option != 8);
+        } while (main_menu_option != 7);
 
     }
 
@@ -231,5 +224,67 @@ public class App {
             }
 
         } while (menu_servicios_opcion != 6);
+    }
+
+    public static void menuInventario(){
+        int menu_invetario_opcion;
+
+        do { 
+            System.out.println("Que quieres hacer?\n1 - Ver inventario\n2 - Modificar cantidad de objeto\n3 - Gestion de objetos \n4 - Gestion de pedidos\n5 - Busqueda por ID\n6 - Salir del menu de inventario");
+            menu_invetario_opcion = scanner.nextInt();
+
+            switch (menu_invetario_opcion) {
+                case 1 -> {
+                    //Inventario.printAll()
+                }
+                case 2 -> {
+                    //Inventario.changeQuantity();
+                }
+                case 3 -> {
+                    //menuObjetos
+                }
+                case 4 -> {
+                    //menuPedidos()
+                }
+                case 5 -> {
+                    //Inventario.showDetails();
+                }
+                case 6 -> { System.out.println("Saliendo del menu de inventario..."); }
+
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
+            }
+
+        } while (menu_invetario_opcion != 6);
+    }
+
+    public static void menuObjetos(){
+        int menu_objetos_opcion;
+
+        do { 
+            System.out.println("Que quieres hacer?\n1 - Ver objetos\n2 - Nuevo objeto\n3 - Borrar objeto \n4 - Editar Objetos\n5 - Ver informacion detallada de un objeto\n6 - Salir del menu de objetos");
+            menu_objetos_opcion = scanner.nextInt();
+
+            switch (menu_objetos_opcion) {
+                case 1 -> {
+                    //Taller.printAllObjetos()
+                }
+                case 2 -> {
+                    //Taller.addObjeto();
+                }
+                case 3 -> {
+                    //Taller.delObjeto();
+                }
+                case 4 -> {
+                    //Objeto.edit()
+                }
+                case 5 -> {
+                    //Objeto.details();
+                }
+                case 6 -> { System.out.println("Saliendo del menu de objetos..."); }
+
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
+            }
+
+        } while (menu_objetos_opcion != 6);
     }
 }
