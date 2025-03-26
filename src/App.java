@@ -11,7 +11,7 @@ public class App {
 
         int main_menu_option;
         do { 
-            System.out.println("Que quieres hacer?\n1 - Gestionar Clientes\n2 - Gestionar Vehiculos\n3 - Gestionar Citas\n4 - Gestion de Inventario\n5 - Gestion de Pedidos\n6 - Gestion de Proveedores\n7 - Salir");
+            System.out.println("Que quieres hacer?\n1 - Gestionar Clientes\n2 - Gestionar Vehiculos\n3 - Gestionar Citas\n4 - Gestion de Inventario\n5 - Gestion contabilidad\n6 - Salir");
             main_menu_option = scanner.nextInt();
 
             switch (main_menu_option) {
@@ -19,17 +19,12 @@ public class App {
                 case 2 -> { menuVehiculos(); }
                 case 3 -> { menuCitas(); }
                 case 4 -> { menuInventario(); }
-                case 5 -> {
-                    //menupedidos
-                }
-                case 6 -> {
-                    //menuproveedores
-                }
-                case 7 -> { System.out.println("Saliendo del programa!"); }
+                case 5 -> { menuInventario(); }
+                case 6 -> { System.out.println("Saliendo del programa!"); }
 
-                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 7.");
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
             }
-        } while (main_menu_option != 7);
+        } while (main_menu_option != 6);
 
     }
 
@@ -240,9 +235,7 @@ public class App {
                 case 2 -> {
                     //Inventario.changeQuantity();
                 }
-                case 3 -> {
-                    //menuObjetos
-                }
+                case 3 -> { menuObjetos(); }
                 case 4 -> {
                     //menuPedidos()
                 }
@@ -286,5 +279,102 @@ public class App {
             }
 
         } while (menu_objetos_opcion != 6);
+    }
+
+    public static void menuPedidos(){
+        int menu_pedidos_opcion;
+
+        do { 
+            System.out.println("Que quieres hacer?\n1 - Ver pedidos por llegar\n2 - Nuevo pedido\n3 - Borrar pedido \n4 - Editar pedido\n5 - Marcar llegada de pedido\n6 - Ver pedidos completados\n7 - Gestion de proveedores\n8 - Salir del menu de objetos");
+            menu_pedidos_opcion = scanner.nextInt();
+
+            switch (menu_pedidos_opcion) {
+                case 1 -> {
+                    //Taller.printAllObjetos()
+                }
+                case 2 -> {
+                    //Taller.addObjeto();
+                }
+                case 3 -> {
+                    //Taller.delObjeto();
+                }
+                case 4 -> {
+                    //Objeto.edit()
+                }
+                case 5 -> {
+                    //Objeto.details();
+                }
+                case 6 -> {
+                    //Objeto.details();
+                }
+                case 7 -> { menuProveedores(); }
+                case 8 -> { System.out.println("Saliendo del menu de pedidos..."); }
+
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 8.");
+            }
+
+        } while (menu_pedidos_opcion != 8);
+    }
+
+    public static void menuProveedores(){
+        int menu_proveedores_opcion;
+
+        do { 
+            System.out.println("Que quieres hacer?\n1 - Ver proveedores\n2 - Nuevo proveedor\n3 - Borrar proveedor \n4 - Editar proveedor\n5 - Ver detalles de proveedor\n6 - Salir del menu de proveedores");
+            menu_proveedores_opcion = scanner.nextInt();
+
+            switch (menu_proveedores_opcion) {
+                case 1 -> {
+                    //Taller.printAllProveedores()
+                }
+                case 2 -> {
+                    //Taller.addProveedor();
+                }
+                case 3 -> {
+                    //Taller.delProveedor();
+                }
+                case 4 -> {
+                    //Proveedor.edit()
+                }
+                case 5 -> {
+                    //Proveedor.details();
+                }
+                case 6 -> { System.out.println("Saliendo del menu de proveedores..."); }
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
+            }
+        } while (menu_proveedores_opcion != 6);
+    }
+
+    public static void menuContabilidad(){
+        int menu_contabilidad_opcion;
+
+        do { 
+            System.out.println("Que quieres hacer?\n1 - Ver balance actual\n2 - Ver historial de transacciones\n3 - Nueva transaccion\n4 - Detalles de una transaccion\n5 - Cambiar balance actual (No recomendado)\n6 - Borrar transaccion (No recomendado)\n7 - Editar transaccion (No recomendado)\n8 - Salir del menu de contabilidad");
+            menu_contabilidad_opcion = scanner.nextInt();
+
+            switch (menu_contabilidad_opcion) {
+                case 1 -> { Taller.getCurMoney(); }
+                case 2 -> {
+                    //Taller.printTransactionHistory();
+                }
+                case 3 -> {
+                    //Taller.addTransaction();
+                }
+                case 4 -> {
+                    //Transaction.details()
+                }
+                case 5 -> {
+                    //Taller.balanceChange();
+                }
+                case 6 -> {
+                    //Proveedor.delTransaction();
+                }
+                case 7 -> {
+                    //Transaction.changeDetails();
+                }
+                case 8 -> { System.out.println("Saliendo del menu de contabilidad..."); }
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 8.");
+            }
+        } while (menu_contabilidad_opcion != 7);
     }
 }
