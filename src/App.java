@@ -152,4 +152,31 @@ public class App {
         } while (menu_tipos_vehiculo_opcion != 6);
     }
 
+    public static void menuFabricantes(){
+        int menu_fabricantes_opcion;
+
+        do { 
+            System.out.println("Que quieres hacer?\n1 - Ver todos los fabricantes\n2 - Nuevo fabricante\n3 - Borrar fabricante\n4 - Salir del menu de fabricantes");
+            menu_fabricantes_opcion = scanner.nextInt();
+
+            switch (menu_fabricantes_opcion) {
+                case 1 -> {
+                    //Taller.printAllFabricantes()
+                }
+                case 2 -> {
+                    //Taller.newFabricante()
+                }
+                case 3 -> {
+                    //Taller.delFabricante()
+                }
+                case 4 -> {
+                    System.out.println("Saliendo del menu de fabricantes...");
+                }
+
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 4.");
+            }
+
+        } while (menu_fabricantes_opcion != 4);
+    }
+
 }
