@@ -1,5 +1,9 @@
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class App {
@@ -19,13 +23,13 @@ public class App {
                 case 2 -> { menuVehiculos(); }
                 case 3 -> { menuCitas(); }
                 case 4 -> { menuInventario(); }
-                case 5 -> { menuInventario(); }
+                case 5 -> { menuContabilidad(); }
                 case 6 -> { System.out.println("Saliendo del programa!"); }
 
                 default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
             }
         } while (main_menu_option != 6);
-
+        System.out.println(getEnvValue("DB_URI"));
     }
 
     public static void menuClientes(){
@@ -375,6 +379,27 @@ public class App {
                 case 8 -> { System.out.println("Saliendo del menu de contabilidad..."); }
                 default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 8.");
             }
-        } while (menu_contabilidad_opcion != 7);
+        } while (menu_contabilidad_opcion != 8);
+    }
+
+    public static String getEnvValue(String key){
+        String PATH = ".env";
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(PATH))){
+            Pattern pattern = Pattern.compile(key+" = \"([A-Za-z -/._0-9]*)\"");
+            String valueToReturn;
+
+            String line;
+            while((line = reader.readLine()) != null){
+                Matcher matcher = pattern.matcher(line);
+                if(matcher.find()){
+                    valueToReturn = matcher.group(1);
+                    return valueToReturn;
+                }
+            }
+        }catch(Exception ex){
+            System.err.println("Error al intentar acceder a .env");
+        }
+        return null;
     }
 }
