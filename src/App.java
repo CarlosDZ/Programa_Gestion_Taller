@@ -16,9 +16,7 @@ public class App {
 
             switch (main_menu_option) {
                 case 1 -> { menuClientes(); }
-                case 2 -> {
-                    //menuvehiculos
-                }
+                case 2 -> { menuVehiculos(); }
                 case 3 -> {
                     //menucitas
                 }
@@ -68,9 +66,7 @@ public class App {
                 case 6 -> {
                     //Cliente.details()
                 }
-                case 7 -> {
-                    System.out.println("Saliendo del menu de clientes...");
-                }
+                case 7 -> { System.out.println("Saliendo del menu de clientes..."); }
 
                 default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 7.");
             }
@@ -106,12 +102,9 @@ public class App {
                 }
                 case 7 -> { menuTiposVehiculo(); }
 
-                case 8 -> {
-                    //menuFabricantes();
-                }
-                case 9 -> {
-                    System.out.println("Saliendo del menu de vehiculos...");
-                }
+                case 8 -> { menuFabricantes(); }
+
+                case 9 -> { System.out.println("Saliendo del menu de vehiculos..."); }
 
                 default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 9.");
             }
