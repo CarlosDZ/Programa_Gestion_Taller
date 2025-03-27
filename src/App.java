@@ -39,7 +39,7 @@ public class App {
         int menu_clientes_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver todos los clientes\n2 - Nuevo cliente\n3 - Borrar cliente\n 4 - Editar cliente\n5 - Vincular vehiculo a cliente\n6 - Ver informacion detallada de un cliente\n7 - Salir del menu de clientes");
+            System.out.println("Que quieres hacer?\n1 - Ver todos los clientes\n2 - Nuevo cliente\n3 - Borrar cliente\n4 - Editar cliente\n5 - Vincular vehiculo a cliente\n6 - Ver informacion detallada de un cliente\n7 - Salir del menu de clientes");
             menu_clientes_opcion = scanner.nextInt();
 
             switch (menu_clientes_opcion) {
@@ -47,7 +47,7 @@ public class App {
                     //Taller.printAllClientes()
                 }
                 case 2 -> {
-                    //Taller.newCliente()
+                    Taller.newCliente();
                 }
                 case 3 -> {
                     //Taller.delCliente()
