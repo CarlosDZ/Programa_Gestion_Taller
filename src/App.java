@@ -43,9 +43,7 @@ public class App {
             menu_clientes_opcion = scanner.nextInt();
 
             switch (menu_clientes_opcion) {
-                case 1 -> {
-                    //Taller.printAllClientes()
-                }
+                case 1 -> { Taller.showAllClientes(); }
                 case 2 -> {
                     Taller.newCliente();
                 }

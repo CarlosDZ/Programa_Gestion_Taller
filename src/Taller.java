@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import javax.swing.text.View;
 
 public class Taller {
     private static final String NAME = "Nombre_Taller";
@@ -32,5 +33,11 @@ public class Taller {
         }while(type<1||type>3);
 
         ClienteDAO.insert(new Cliente(name, phone, location, type));
+    }
+
+    public static void showAllClientes(){
+        System.out.println("-------------------------------------");
+        ClienteView.quickGeneralView(ClienteDAO.getAll());
+        System.out.println("-------------------------------------");
     }
 }

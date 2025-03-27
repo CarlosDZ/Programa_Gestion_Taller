@@ -1,9 +1,11 @@
+import java.sql.Date;
+
 public class Cliente {
     private int id;
     private String name;
     private String phone_num;
     private String shipping_location;
-    private String registration_date;
+    private Date registration_date;
     private int entity_type; // 1 - Person  // 2 - Enterprise
     
 
@@ -20,9 +22,11 @@ public class Cliente {
     public String getName(){ return this.name; }
     public String getPhone(){ return this.phone_num; }
     public String getLocation(){ return this.shipping_location; }
-    public String getDate(){ return this.registration_date; }
+    public Date getDate(){ return this.registration_date; }
     public int getType(){ return this.entity_type; }
 
     //Setters
+    public void setRegistrationDate(Date date){ this.registration_date = date; }
+    public void setID(int id){ this.id = id; }
 
 }
