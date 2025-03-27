@@ -1,8 +1,8 @@
-
+package dao;
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-
+import model.Cliente;
 public class ClienteDAO {
     
     public static void insert(Cliente cliente){
@@ -75,6 +75,69 @@ public class ClienteDAO {
                 System.out.println("Cliente eliminado.");
             } catch (SQLException e) {
                 System.out.println("Error al eliminar cliente: " + e.getMessage());
+            }
+        }
+    }
+
+
+    //Actualizar atributos
+
+    public static void actualizarTelefono(Cliente cliente, String nuevoTelefono) {
+        Connection conexion = ConexionDB.connectDB();
+        if (conexion != null) {
+            String query = "UPDATE clientes SET phone_num = ? WHERE id = ?";
+            try (PreparedStatement statement = conexion.prepareStatement(query)) {
+                statement.setString(1, nuevoTelefono);
+                statement.setInt(2, cliente.getID());
+                statement.executeUpdate();
+                System.out.println("Telefono actualizado.");
+            } catch (SQLException e) {
+                System.out.println("Error al actualizar el telofono del cliente: " + e.getMessage());
+            }
+        }
+    }
+
+    public static void actualizarNombre(Cliente cliente, String nuevoNombre) {
+        Connection conexion = ConexionDB.connectDB();
+        if (conexion != null) {
+            String query = "UPDATE clientes SET name = ? WHERE id = ?";
+            try (PreparedStatement statement = conexion.prepareStatement(query)) {
+                statement.setString(1, nuevoNombre);
+                statement.setInt(2, cliente.getID());
+                statement.executeUpdate();
+                System.out.println("Nombre actualizado.");
+            } catch (SQLException e) {
+                System.out.println("Error al actualizar el nombre del cliente: " + e.getMessage());
+            }
+        }
+    }
+
+    public static void actualizarDireccion(Cliente cliente, String nuevaDireccion) {
+        Connection conexion = ConexionDB.connectDB();
+        if (conexion != null) {
+            String query = "UPDATE clientes SET shipping_location = ? WHERE id = ?";
+            try (PreparedStatement statement = conexion.prepareStatement(query)) {
+                statement.setString(1, nuevaDireccion);
+                statement.setInt(2, cliente.getID());
+                statement.executeUpdate();
+                System.out.println("Direccion de envio actualizado.");
+            } catch (SQLException e) {
+                System.out.println("Error al actualizar la direccion de envio del cliente: " + e.getMessage());
+            }
+        }
+    }
+
+    public static void actualizarTipoEntidad(Cliente cliente, int nuevoTipo) {
+        Connection conexion = ConexionDB.connectDB();
+        if (conexion != null) {
+            String query = "UPDATE clientes SET entity_type = ? WHERE id = ?";
+            try (PreparedStatement statement = conexion.prepareStatement(query)) {
+                statement.setInt(1, nuevoTipo);
+                statement.setInt(2, cliente.getID());
+                statement.executeUpdate();
+                System.out.println("Tipo de entidad actualizada.");
+            } catch (SQLException e) {
+                System.out.println("Error al actualizar el tipo de entidad del cliente: " + e.getMessage());
             }
         }
     }

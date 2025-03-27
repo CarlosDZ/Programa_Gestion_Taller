@@ -1,7 +1,10 @@
+package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import Main.App;
 
 public class ConexionDB {
     static final private String DB_URI = App.getEnvValue("DB_URI");

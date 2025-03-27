@@ -1,5 +1,9 @@
+package Main;
+import dao.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import model.*;
+import view.*;
 
 public class Taller {
     private static final String NAME = "Nombre_Taller";

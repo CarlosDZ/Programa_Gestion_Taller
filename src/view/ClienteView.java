@@ -1,4 +1,7 @@
+package view;
+
 import java.util.ArrayList;
+import model.*;
 
 public class ClienteView {
     public static void quickGeneralView(ArrayList<Cliente> clientes){

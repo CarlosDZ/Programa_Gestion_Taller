@@ -1,3 +1,4 @@
+package Main;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -5,6 +6,7 @@ import java.sql.Connection;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import dao.ConexionDB;
 
 
 public class App {
