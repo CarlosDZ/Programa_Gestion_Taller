@@ -1,6 +1,7 @@
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.sql.Connection;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -9,27 +10,29 @@ import java.util.regex.Pattern;
 public class App {
     static Scanner scanner = new Scanner(System.in);
 
+    static Connection conexion_sql = ConexionDB.connectDB();
     public static void main(String[] args) throws Exception {
 
         System.out.println("Bienvenido al programa de gestion de " + Taller.getName());
-
-        int main_menu_option;
-        do { 
-            System.out.println("Que quieres hacer?\n1 - Gestionar Clientes\n2 - Gestionar Vehiculos\n3 - Gestionar Citas\n4 - Gestion de Inventario\n5 - Gestion contabilidad\n6 - Salir");
-            main_menu_option = scanner.nextInt();
-
-            switch (main_menu_option) {
-                case 1 -> { menuClientes(); }
-                case 2 -> { menuVehiculos(); }
-                case 3 -> { menuCitas(); }
-                case 4 -> { menuInventario(); }
-                case 5 -> { menuContabilidad(); }
-                case 6 -> { System.out.println("Saliendo del programa!"); }
-
-                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
-            }
-        } while (main_menu_option != 6);
-        System.out.println(getEnvValue("DB_URI"));
+        if(App.conexion_sql == null) System.err.println("Error en a conexion a la base de datos. Saliendo del programa.");
+        else{
+            int main_menu_option;
+            do { 
+                System.out.println("Que quieres hacer?\n1 - Gestionar Clientes\n2 - Gestionar Vehiculos\n3 - Gestionar Citas\n4 - Gestion de Inventario\n5 - Gestion contabilidad\n6 - Salir");
+                main_menu_option = scanner.nextInt();
+    
+                switch (main_menu_option) {
+                    case 1 -> { menuClientes(); }
+                    case 2 -> { menuVehiculos(); }
+                    case 3 -> { menuCitas(); }
+                    case 4 -> { menuInventario(); }
+                    case 5 -> { menuContabilidad(); }
+                    case 6 -> { System.out.println("Saliendo del programa!"); }
+    
+                    default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
+                }
+            } while (main_menu_option != 6);
+        }
     }
 
     public static void menuClientes(){
@@ -386,7 +389,7 @@ public class App {
         String PATH = ".env";
 
         try(BufferedReader reader = new BufferedReader(new FileReader(PATH))){
-            Pattern pattern = Pattern.compile(key+" = \"([A-Za-z -/._0-9]*)\"");
+            Pattern pattern = Pattern.compile(key+" = \"([A-Za-z -/._:0-9]*)\"");
             String valueToReturn;
 
             String line;
@@ -402,4 +405,6 @@ public class App {
         }
         return null;
     }
+
+
 }
