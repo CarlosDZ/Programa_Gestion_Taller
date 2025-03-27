@@ -1,8 +1,11 @@
 package model;
 
+import dao.ClienteDAO;
 import java.sql.Date;
+import java.util.Scanner;
 
 public class Cliente {
+    Scanner sc = new Scanner(System.in);
     private int id;
     private String name;
     private String phone_num;
@@ -30,5 +33,48 @@ public class Cliente {
     //Setters
     public void setRegistrationDate(Date date){ this.registration_date = date; }
     public void setID(int id){ this.id = id; }
+
+    //Metodos
+    public void actualizarDatos(){
+        
+        System.out.println("Que quieres editar?\n1 - Nombre\n2 - Telefono\n3 - Direccion de envio\n4 - Tipo de cliente\n5 - Cancelar");
+        int option;
+        do { 
+            option = sc.nextInt();
+            if(option<1||option>5) System.out.println("El numero no entra en el rango, prueba de nuevo.");
+        } while (option<1||option>5);
+
+        switch (option) {
+            case 1-> {
+                System.out.println("Introduce el nuevo nombre.");
+                sc.nextLine();
+                String newName = sc.nextLine();
+                ClienteDAO.actualizarNombre(this, newName);
+            }
+            case 2-> {
+                System.out.println("Introduce el nuevo telefono.");
+                String newTlfNumber = sc.next();
+                ClienteDAO.actualizarTelefono(this, newTlfNumber);
+            }
+            case 3-> {
+                System.out.println("Introduce la nueva direccion de envio.");
+                sc.nextLine();
+                String newLocation = sc.nextLine();
+                ClienteDAO.actualizarDireccion(this, newLocation);
+            }
+            case 4-> {
+                System.out.println("Introduce el nuevo tipo de cliente. (1 - Persona fisica // 2 - Empresa o grupo de personas // 3 - Otro)");
+                int newTipe;
+                do { 
+                    newTipe = sc.nextInt();
+                    if(newTipe<1||newTipe>3) System.out.println("El numero no entra en el rango, prueba de nuevo.");
+                } while (newTipe<1||newTipe>3);
+                ClienteDAO.actualizarTipoEntidad(this, newTipe);
+            }
+            case 5-> {
+                System.out.println("OK. Volviendo al menu de clientes...");
+            }
+        }
+    }
 
 }

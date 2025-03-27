@@ -66,4 +66,14 @@ public class Taller {
         else
             System.out.println("No hay ningun cliente con ese ID en la base de datos.");
     }
+
+    public static void editCliente(){
+        System.out.println("Introduce el ID del cliente que quieres editar.");
+        int id = scanner.nextInt();
+
+        if(idToCliente(id) != null)
+            idToCliente(id).actualizarDatos();
+        else
+            System.out.println("El ID introducido no corresponde a ningun cliente. Volviendo al menu de clientes...");
+    }
 }

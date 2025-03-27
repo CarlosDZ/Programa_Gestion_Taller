@@ -1,12 +1,12 @@
 package Main;
 
+import dao.ConexionDB;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import dao.ConexionDB;
 
 
 public class App {
@@ -50,9 +50,7 @@ public class App {
                     Taller.newCliente();
                 }
                 case 3 -> { Taller.delCliente(); }
-                case 4 -> {
-                    //Cliente.edit()
-                }
+                case 4 -> { Taller.editCliente(); }
                 case 5 -> {
                     //Vehiculo.linkToCliente()
                 }
