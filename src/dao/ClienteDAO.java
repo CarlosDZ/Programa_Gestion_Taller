@@ -34,16 +34,16 @@ public class ClienteDAO {
 
         Connection conexion = ConexionDB.connectDB();
         if (conexion != null) {
-            int id = 0;
-            String name = null;
-            String phone_num = null;
-            String shipping_location = null;
-            Date registration_date = null;
-            int entity_type = 0;
             
             String query = "SELECT * FROM clientes"; 
             try (Statement statement = conexion.createStatement(); ResultSet results = statement.executeQuery(query)) {
                 Cliente x;
+                int id;
+                String name;
+                String phone_num;
+                String shipping_location;
+                Date registration_date;
+                int entity_type;
                     while (results.next()) {
                         id = results.getInt("id");
                         name = results.getString("name");
@@ -61,7 +61,8 @@ public class ClienteDAO {
                 System.out.println("Error al obtener la lista de clientes: " + e.getMessage());
             }
         }
-
         return null;
     }
+
+
 }

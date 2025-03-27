@@ -1,5 +1,5 @@
+import java.util.ArrayList;
 import java.util.Scanner;
-import javax.swing.text.View;
 
 public class Taller {
     private static final String NAME = "Nombre_Taller";
@@ -36,8 +36,13 @@ public class Taller {
     }
 
     public static void showAllClientes(){
-        System.out.println("-------------------------------------");
-        ClienteView.quickGeneralView(ClienteDAO.getAll());
-        System.out.println("-------------------------------------");
+        ArrayList<Cliente> lista_clientes = ClienteDAO.getAll();
+        if(!lista_clientes.isEmpty()){
+            System.out.println("-------------------------------------");
+            ClienteView.quickGeneralView(lista_clientes);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de clientes de la base de datos esta vacia.");
     }
 }
