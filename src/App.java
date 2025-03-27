@@ -47,9 +47,7 @@ public class App {
                 case 2 -> {
                     Taller.newCliente();
                 }
-                case 3 -> {
-                    //Taller.delCliente()
-                }
+                case 3 -> { Taller.delCliente(); }
                 case 4 -> {
                     //Cliente.edit()
                 }

@@ -64,5 +64,20 @@ public class ClienteDAO {
         return null;
     }
 
+    public static void delete(Cliente cliente){
+        Connection conexion = ConexionDB.connectDB();
+        int id = cliente.getID();
+        if (conexion != null) {
+            String query = "DELETE FROM clientes WHERE id = ?";
+            try (PreparedStatement statement = conexion.prepareStatement(query)) {
+                statement.setInt(1, id);
+                statement.executeUpdate();
+                System.out.println("Cliente eliminado.");
+            } catch (SQLException e) {
+                System.out.println("Error al eliminar cliente: " + e.getMessage());
+            }
+        }
+    }
 
+    //e
 }

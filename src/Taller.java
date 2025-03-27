@@ -45,4 +45,21 @@ public class Taller {
         else
             System.out.println("La lista de clientes de la base de datos esta vacia.");
     }
+
+    public static Cliente idToCliente(int id){
+        for(Cliente cliente : ClienteDAO.getAll()){
+            if(cliente.getID() == id) return cliente;
+        }
+        return null;
+    }
+
+    public static void delCliente(){
+        System.out.println("Introduce el ID del cliente que quieres eliminar.");
+        int id = scanner.nextInt();
+
+        Cliente toDelete = idToCliente(id);
+        if(toDelete != null) ClienteDAO.delete(toDelete);
+        else
+            System.out.println("No hay ningun cliente con ese ID en la base de datos.");
+    }
 }
