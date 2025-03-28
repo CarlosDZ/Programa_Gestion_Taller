@@ -77,4 +77,14 @@ public class Cliente {
         }
     }
 
+    public void details(){
+        String tipo;
+        switch (getType()) {
+            case 1 -> tipo = "Persona";
+            case 2 -> tipo = "Empresa";
+            default -> tipo = "Otros";
+        }
+        System.out.println(getName()+"\n(ID: "+getID()+")\n\nNum TLF: "+getPhone()+"\nDireccion: "+getLocation());
+        System.out.println("\nCliente de tipo "+tipo+" registrado el "+getDate());
+    }
 }

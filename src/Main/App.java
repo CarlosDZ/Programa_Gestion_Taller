@@ -54,9 +54,7 @@ public class App {
                 case 5 -> {
                     //Vehiculo.linkToCliente()
                 }
-                case 6 -> {
-                    //Cliente.details()
-                }
+                case 6 -> { Taller.describeCliente(); }
                 case 7 -> { System.out.println("Saliendo del menu de clientes..."); }
 
                 default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 7.");
