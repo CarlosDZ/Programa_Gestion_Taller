@@ -86,5 +86,7 @@ public class Cliente {
         }
         System.out.println(getName()+"\n(ID: "+getID()+")\n\nNum TLF: "+getPhone()+"\nDireccion: "+getLocation());
         System.out.println("\nCliente de tipo "+tipo+" registrado el "+getDate());
+
+        //añadir lista de vehiculos vinculados
     }
 }

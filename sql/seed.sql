@@ -5,4 +5,17 @@ CREATE TABLE clientes(
     shipping_location VARCHAR(200),
     registration_date DATE NOT NULL,
     entity_type CHAR
-)
+);
+
+CREATE TABLE Vehiculos(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_brand INT NOT NULL,
+    FOREIGN KEY (id_brand) REFERENCES marcas(id),
+    model VARCHAR(100) NOT NULL,
+    year INT NOT NULL,
+    license_plate VARCHAR(10) UNIQUE NOT NULL,
+    client_id INT,
+    FOREIGN KEY (client_id) REFERENCES clientes(id),
+    id_type INT NOT NULL,
+    FOREIGN KEY (id_type) REFERENCES tipos_vehiculos(id),
+);
