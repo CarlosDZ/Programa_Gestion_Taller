@@ -118,4 +118,37 @@ public class Taller {
         }
         return null;
     }
+
+    public static TipoVehiculo idToTipoVehiculo(int id){
+        for(TipoVehiculo tipoVehiculo : TipoVehiculoDAO.getAll()){
+            if(tipoVehiculo.getId() == id) return tipoVehiculo;
+        }
+        return null;
+    }
+
+    public static void showAllTiposVehiculos(){
+        ArrayList<TipoVehiculo> lista_tipoVehiculo = TipoVehiculoDAO.getAll();
+        if(!lista_tipoVehiculo.isEmpty()){
+            System.out.println("-------------------------------------");
+            TipoVehiculoView.quickGeneralView(lista_tipoVehiculo);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de tipos de vehiculos de la base de datos esta vacia.");
+    }
+    public static void newTipoVehiculo(){
+        System.out.println("Introduce el nombre que quieres darle a tu nuevo tipo de vehiculo.");
+        String name = scanner.nextLine();
+
+        TipoVehiculoDAO.insert(new TipoVehiculo(name));
+    }
+    public static void delTipoVehiculo(){
+        System.out.println("Introduce el ID del tipo de vehiculo que quieres eliminar.");
+        int id = scanner.nextInt();
+
+        TipoVehiculo toDelete = idToTipoVehiculo(id);
+        if(toDelete != null) TipoVehiculoDAO.delete(toDelete);
+        else
+            System.out.println("No hay ningun tipo de vehiculo con ese ID en la base de datos.");
+    }
 }

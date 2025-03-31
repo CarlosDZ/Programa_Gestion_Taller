@@ -105,33 +105,27 @@ public class App {
         int menu_tipos_vehiculo_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver todos los tipos de vehiculo\n2 - Nuevo tipo de vehiculo\n3 - Borrar tipo de vehiculo\n 4 - Editar tipo de vehiculo\n5 - Ver informacion detallada de un tipo de vehiculo\n6 - Salir del menu de tipos de vehiculo");
+            System.out.println("Que quieres hacer?\n1 - Ver todos los tipos de vehiculo\n2 - Nuevo tipo de vehiculo\n3 - Borrar tipo de vehiculo\n4 - Salir del menu de tipos de vehiculo");
             menu_tipos_vehiculo_opcion = scanner.nextInt();
 
             switch (menu_tipos_vehiculo_opcion) {
                 case 1 -> {
-                    //Taller.printAllTiposVehiculo()
+                    Taller.showAllTiposVehiculos();
                 }
                 case 2 -> {
-                    //Taller.newTipoVehiculo()
+                    Taller.newTipoVehiculo();
                 }
                 case 3 -> {
-                    //Taller.delTipoVehiculo()
+                    Taller.delTipoVehiculo();
                 }
                 case 4 -> {
-                    //TipoVehiculo.edit()
-                }
-                case 5 -> {
-                    //TipoVehiculo.details()
-                }
-                case 6 -> {
                     System.out.println("Saliendo del menu de tipos de vehiculo...");
                 }
 
-                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 4.");
             }
 
-        } while (menu_tipos_vehiculo_opcion != 6);
+        } while (menu_tipos_vehiculo_opcion != 4);
     }
 
     public static void menuMarcas(){
