@@ -67,7 +67,7 @@ public class App {
         int menu_vehiculos_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver todos los vehiculos\n2 - Nuevo vehiculo\n3 - Borrar vehiculo\n 4 - Editar vehiculo\n5 - Vincular vehiculo a cliente\n6 - Ver informacion detallada de un vehiculo\n7 - Gestionar tipos de vehiculos\n8 - Gestionar fabricantes\n9 - Salir del menu de vehiculos");
+            System.out.println("Que quieres hacer?\n1 - Ver todos los vehiculos\n2 - Nuevo vehiculo\n3 - Borrar vehiculo\n 4 - Editar vehiculo\n5 - Vincular vehiculo a cliente\n6 - Ver informacion detallada de un vehiculo\n7 - Gestionar tipos de vehiculos\n8 - Gestionar marcas\n9 - Salir del menu de vehiculos");
             menu_vehiculos_opcion = scanner.nextInt();
 
             switch (menu_vehiculos_opcion) {
@@ -91,7 +91,7 @@ public class App {
                 }
                 case 7 -> { menuTiposVehiculo(); }
 
-                case 8 -> { menuFabricantes(); }
+                case 8 -> { menuMarcas(); }
 
                 case 9 -> { System.out.println("Saliendo del menu de vehiculos..."); }
 
@@ -134,31 +134,31 @@ public class App {
         } while (menu_tipos_vehiculo_opcion != 6);
     }
 
-    public static void menuFabricantes(){
-        int menu_fabricantes_opcion;
+    public static void menuMarcas(){
+        int menu_marcas_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver todos los fabricantes\n2 - Nuevo fabricante\n3 - Borrar fabricante\n4 - Salir del menu de fabricantes");
-            menu_fabricantes_opcion = scanner.nextInt();
+            System.out.println("Que quieres hacer?\n1 - Ver todas las marcas\n2 - Nueva marca\n3 - Borrar marca\n4 - Salir del menu de marcas");
+            menu_marcas_opcion = scanner.nextInt();
 
-            switch (menu_fabricantes_opcion) {
+            switch (menu_marcas_opcion) {
                 case 1 -> {
-                    //Taller.printAllFabricantes()
+                    Taller.showAllMarcas();
                 }
                 case 2 -> {
-                    //Taller.newFabricante()
+                    Taller.newMarca();
                 }
                 case 3 -> {
-                    //Taller.delFabricante()
+                    Taller.delMarca();
                 }
                 case 4 -> {
-                    System.out.println("Saliendo del menu de fabricantes...");
+                    System.out.println("Saliendo del menu de marcas...");
                 }
 
                 default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 4.");
             }
 
-        } while (menu_fabricantes_opcion != 4);
+        } while (menu_marcas_opcion != 4);
     }
 
     public static void menuCitas(){

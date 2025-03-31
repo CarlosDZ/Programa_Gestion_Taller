@@ -86,4 +86,36 @@ public class Taller {
         else
             System.out.println("El ID introducido no corresponde a ningun cliente. Volviendo al menu de clientes...");
     }
+
+    public static void showAllMarcas(){
+        ArrayList<Marca> lista_marca = MarcaDAO.getAll();
+        if(!lista_marca.isEmpty()){
+            System.out.println("-------------------------------------");
+            MarcaView.quickGeneralView(lista_marca);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de marcas de la base de datos esta vacia.");
+    }
+    public static void newMarca(){
+        System.out.println("Introduce el nombre que quieres darle a tu nueva marca.");
+        String name = scanner.nextLine();
+
+        MarcaDAO.insert(new Marca(name));
+    }
+    public static void delMarca(){
+        System.out.println("Introduce el ID de la marca que quieres eliminar.");
+        int id = scanner.nextInt();
+
+        Marca toDelete = idToMarca(id);
+        if(toDelete != null) MarcaDAO.delete(toDelete);
+        else
+            System.out.println("No hay ninguna marca con ese ID en la base de datos.");
+    }
+    public static Marca idToMarca(int id){
+        for(Marca marca : MarcaDAO.getAll()){
+            if(marca.getId() == id) return marca;
+        }
+        return null;
+    }
 }

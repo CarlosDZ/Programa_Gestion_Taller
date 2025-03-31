@@ -19,3 +19,12 @@ CREATE TABLE Vehiculos(
     id_type INT NOT NULL,
     FOREIGN KEY (id_type) REFERENCES tipos_vehiculos(id),
 );
+
+CREATE TABLE marcas(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+CREATE TABLE tipos_vehiculos(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
