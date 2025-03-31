@@ -72,22 +72,23 @@ public class App {
 
             switch (menu_vehiculos_opcion) {
                 case 1 -> {
-                    //Taller.printAllVehiculos()
+                    Taller.showAllVehiculos();
                 }
                 case 2 -> {
-                    //Taller.newVehiculo()
+                    Taller.newVehiculo();
                 }
                 case 3 -> {
-                    //Taller.delVehiculo()
+                    Taller.delVehiculo();
                 }
                 case 4 -> {
                     //Vehiculo.edit()
+                    System.out.println("Me ha dado pila de pereza hacer esto, lo siento :(");
                 }
                 case 5 -> {
-                    //Vehiculo.linkToCliente()
+                    Taller.linkVehiculoToCliente();
                 }
                 case 6 -> {
-                    //Vehiculo.details()
+                    Taller.describeVehiculo();
                 }
                 case 7 -> { menuTiposVehiculo(); }
 

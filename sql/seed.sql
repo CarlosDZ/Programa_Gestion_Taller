@@ -7,7 +7,7 @@ CREATE TABLE clientes(
     entity_type CHAR
 );
 
-CREATE TABLE Vehiculos(
+CREATE TABLE vehiculos(
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_brand INT NOT NULL,
     FOREIGN KEY (id_brand) REFERENCES marcas(id),

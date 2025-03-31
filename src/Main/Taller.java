@@ -151,4 +151,117 @@ public class Taller {
         else
             System.out.println("No hay ningun tipo de vehiculo con ese ID en la base de datos.");
     }
+
+    public static void showAllVehiculos(){
+        ArrayList<Vehiculo> lista_vehiculos = VehiculoDAO.getAll();
+        if(!lista_vehiculos.isEmpty()){
+            System.out.println("-------------------------------------");
+            VehiculoView.quickGeneralView(lista_vehiculos);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de vehiculos de la base de datos esta vacia.");
+    }
+
+    public static void newVehiculo(){
+        System.out.println("Introduce el modelo del vehiculo.");
+        String model = scanner.nextLine();
+
+        System.out.println("Introduce el año del vehiculo.");
+        int year = scanner.nextInt();
+
+        System.out.println("Introduce la matricula del vehiculo.");
+        String license_plate = scanner.next();
+
+        System.out.println("Estas son las marcas disponibles: ");
+        showAllMarcas();
+        Marca marca;
+        do { 
+            System.out.println("Introduce el ID de la marca del vehiculo.");
+            marca = idToMarca(scanner.nextInt());
+            if (marca == null) {
+                System.out.println("El ID introducido no es correcto, prueba de nuevo.");
+            } else {
+                System.out.println("Marca seleccionada: " + marca.getName());
+            }
+        } while (marca == null);
+        
+
+        System.out.println("Estos son los tipos de vehiculo disponibles: ");
+        showAllTiposVehiculos();
+        TipoVehiculo tipoVehiculo;
+        do { 
+            System.out.println("Introduce el ID del tipo del vehiculo.");
+            tipoVehiculo = idToTipoVehiculo(scanner.nextInt());
+            if (tipoVehiculo == null) {
+                System.out.println("El ID introducido no es correcto, prueba de nuevo.");
+            } else {
+                System.out.println("Tipo de vehiculo seleccionado: " + marca.getName());
+            }
+        } while (tipoVehiculo == null);
+
+        VehiculoDAO.insert(new Vehiculo(model, year, license_plate, marca.getId(), tipoVehiculo.getId()));
+    }
+
+    public static void delVehiculo(){
+        System.out.println("Introduce el ID del vehiculo que quieres eliminar.");
+        int id = scanner.nextInt();
+
+        Vehiculo toDelete = idToVehiculo(id);
+        if(toDelete != null) VehiculoDAO.delete(toDelete);
+        else
+            System.out.println("No hay ningun vehiculo con ese ID en la base de datos.");
+    }
+    public static Vehiculo idToVehiculo(int id){
+        for(Vehiculo vehiculo : VehiculoDAO.getAll()){
+            if(vehiculo.getId() == id) return vehiculo;
+        }
+        return null;
+    }
+
+    public static void linkVehiculoToCliente(){
+        System.out.println("Estos son los vehiculos disponibles: ");
+        showAllVehiculos();
+
+        Vehiculo toLink;
+        System.out.println("Introduce el ID del vehiculo que quieres vincular a un cliente.");
+        do { 
+            toLink = idToVehiculo(id = scanner.nextInt());
+            if (toLink == null) {
+                System.out.println("El ID introducido no es correcto, prueba de nuevo.");
+            } else {
+                System.out.println("Vehiculo seleccionado: " + toLink.getLicense_plate());
+            }
+        } while (toLink == null);
+
+        System.out.println("Estos son los clientes disponibles: ");
+        showAllClientes();
+
+        Cliente owner;
+        System.out.println("Introduce el ID del cliente al que quieres vincular el vehiculo.");
+        do { 
+            owner = idToCliente(scanner.nextInt());
+            if (owner == null) {
+                System.out.println("El ID introducido no es correcto, prueba de nuevo.");
+            } else {
+                System.out.println("Cliente seleccionado: " + owner.getName());
+            }
+        } while (owner == null);
+
+        VehiculoDAO.actualizarOwner(toLink, owner);
+    }
+
+    public static void describeVehiculo(){
+        System.out.println("Introduce el ID del vehiculo cuya informacion quieres ver.");
+        Vehiculo toDescribe;
+        do { 
+            toDescribe = idToVehiculo(scanner.nextInt());
+                if (toDescribe != null) {
+                    System.out.println("Vehiculo seleccionado, mostrando detalles...");
+                    toDescribe.details();
+                }
+                else
+                    System.out.println("El ID introducido no corresponde a ningun vehiculo. Vuelve a intentarlo.");
+        } while (toDescribe == null);
+    }
 }

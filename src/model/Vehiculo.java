@@ -64,7 +64,12 @@ public class Vehiculo {
         }
     }
 
-
+    public void details(){
+        String nombre_tipo = Taller.idToTipoVehiculo(this.vehicle_type).getName();
+        String nombre_marca = Taller.idToMarca(this.id_brand).getName();
+        String nombre_cliente = Taller.idToCliente(this.id_owner).getName();
+        System.out.println("ID: " + this.id + "\nModelo: " + this.model + "\nAño: " + this.year + "\nPlaca: " + this.license_plate + "\n\nMarca: " + nombre_marca + "\nTipo de vehiculo: " + nombre_tipo + "\n\nID dueño: "+this.id_owner+"\nNombre dueño: " + nombre_cliente);
+    }
 
 
 }
