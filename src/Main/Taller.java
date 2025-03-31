@@ -264,4 +264,44 @@ public class Taller {
                     System.out.println("El ID introducido no corresponde a ningun vehiculo. Vuelve a intentarlo.");
         } while (toDescribe == null);
     }
+
+    public static Servicio idToServicio(int id){
+        for(Servicio servicio : ServicioDAO.getAll()){
+            if(servicio.getId() == id) return servicio;
+        }
+        return null;
+    }
+
+    public static void showAllServicios(){
+        ArrayList<Servicio> lista_servicios = ServicioDAO.getAll();
+        if(!lista_servicios.isEmpty()){
+            System.out.println("-------------------------------------");
+            ServicioView.quickGeneralView(lista_servicios);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de servicios de la base de datos esta vacia.");
+    }
+
+    public static void newServicio(){
+        System.out.println("Introduce el nombre que quieres darle a tu nuevo servicio.");
+        String name = scanner.nextLine();
+
+        System.out.println("Introduce el precio de tu nuevo servicio.");
+        Double precio = scanner.nextDouble();
+
+        ServicioDAO.insert(new Servicio(name, precio));
+    }
+
+    public static void delServicio(){
+        System.out.println("Introduce el ID del servicio que quieres eliminar.");
+        int id = scanner.nextInt();
+
+        Servicio toDelete = idToServicio(id);
+        if(toDelete != null) ServicioDAO.delete(toDelete);
+        else
+            System.out.println("No hay ningun servicio con ese ID en la base de datos.");
+    }
+
+    
 }
