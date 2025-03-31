@@ -67,7 +67,7 @@ public class App {
         int menu_vehiculos_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver todos los vehiculos\n2 - Nuevo vehiculo\n3 - Borrar vehiculo\n 4 - Editar vehiculo\n5 - Vincular vehiculo a cliente\n6 - Ver informacion detallada de un vehiculo\n7 - Gestionar tipos de vehiculos\n8 - Gestionar marcas\n9 - Salir del menu de vehiculos");
+            System.out.println("Que quieres hacer?\n1 - Ver todos los vehiculos\n2 - Nuevo vehiculo\n3 - Borrar vehiculo\n4 - Editar vehiculo\n5 - Vincular vehiculo a cliente\n6 - Ver informacion detallada de un vehiculo\n7 - Gestionar tipos de vehiculos\n8 - Gestionar marcas\n9 - Salir del menu de vehiculos");
             menu_vehiculos_opcion = scanner.nextInt();
 
             switch (menu_vehiculos_opcion) {

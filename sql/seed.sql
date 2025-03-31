@@ -17,7 +17,7 @@ CREATE TABLE vehiculos(
     client_id INT,
     FOREIGN KEY (client_id) REFERENCES clientes(id),
     id_type INT NOT NULL,
-    FOREIGN KEY (id_type) REFERENCES tipos_vehiculos(id),
+    FOREIGN KEY (id_type) REFERENCES tipos_vehiculos(id)
 );
 
 CREATE TABLE marcas(

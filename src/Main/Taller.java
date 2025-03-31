@@ -226,7 +226,7 @@ public class Taller {
         Vehiculo toLink;
         System.out.println("Introduce el ID del vehiculo que quieres vincular a un cliente.");
         do { 
-            toLink = idToVehiculo(id = scanner.nextInt());
+            toLink = idToVehiculo(scanner.nextInt());
             if (toLink == null) {
                 System.out.println("El ID introducido no es correcto, prueba de nuevo.");
             } else {
