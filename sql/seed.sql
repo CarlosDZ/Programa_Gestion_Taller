@@ -54,5 +54,10 @@ CREATE TABLE proveedores(
 
 CREATE TABLE objeto(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-)
+    name VARCHAR(100) NOT NULL
+);
+CREATE TABLE inventario(
+    id_objeto INT UNIQUE,
+    FOREIGN KEY (id_objeto) REFERENCES objeto(id),
+    cantidad INT NOT NULL DEFAULT 0
+);

@@ -450,20 +450,103 @@ public class Taller {
         String name = scanner.nextLine();
 
         ObjetoDAO.insert(new Objeto(name));
+        InventarioDAO.insert(new Inventario(ObjetoDAO.getLastId(), 0));
     }
     public static void delObjeto(){
         System.out.println("Introduce el ID del objeto que quieres eliminar.");
         int id = scanner.nextInt();
 
         Objeto toDelete = idToObjeto(id);
-        if(toDelete != null) ObjetoDAO.delete(toDelete);
+        if(toDelete != null){
+            ObjetoDAO.delete(toDelete);
+            InventarioDAO.delete(idToInventario(id));
+        }
         else
             System.out.println("No hay ningun objeto con ese ID en la base de datos.");
+    }
+    private static Inventario idToInventario(int id) {
+        for(Inventario inventario : InventarioDAO.getInventario()){
+            if(inventario.getId_objeto() == id) return inventario;
+        }
+        return null;
     }
     public static Objeto idToObjeto(int id){
         for(Objeto objeto : ObjetoDAO.getAll()){
             if(objeto.getId() == id) return objeto;
         }
         return null;
+    }
+
+    public static void showCurrentInventario(){
+        ArrayList<Inventario> lista_inventario = InventarioDAO.getInventario();
+        if(!lista_inventario.isEmpty()){
+            System.out.println("Estos son los objetos en el inventario y su cantidad: ");
+            System.out.println("-------------------------------------");
+            InventarioView.showInventarioNot0(lista_inventario);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de inventario de la base de datos esta vacia.");
+    }
+    public static void showAllInventario(){
+        ArrayList<Inventario> lista_inventario = InventarioDAO.getInventario();
+        if(!lista_inventario.isEmpty()){
+            System.out.println("Estos son los objetos en el inventario y su cantidad: ");
+            System.out.println("-------------------------------------");
+            InventarioView.showAllInventario(lista_inventario);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de inventario de la base de datos esta vacia.");
+    }
+
+    public static void cambiarCantidadInventario(){
+        System.out.println("Estos son los objetos del inventario cuya capacidad puedes cambiar:");
+        showAllInventario();
+        Inventario toChange;
+        do{
+            System.out.println("Introduce el ID del objeto cuya cantidad quieres cambiar.");
+            toChange = idToInventario(scanner.nextInt());
+            if(toChange != null){
+                System.out.println("Objeto seleccionado: " + idToObjeto(toChange.getId_objeto()).getNombre());
+                System.out.println("Cantidad actual: " + toChange.getCantidad());
+            }
+            else
+                System.out.println("El ID introducido no corresponde a ningun objeto. Vuelve a intentarlo.");
+        }while(toChange == null);
+
+
+        int newQuantity;
+        do{
+            System.out.println("Introduce la nueva cantidad del objeto.");
+            newQuantity = scanner.nextInt();
+            if(newQuantity < 0) System.out.println("La cantidad no puede ser negativa, prueba de nuevo.");
+    }while(newQuantity < 0);
+
+        InventarioDAO.changeQuantity(toChange, newQuantity);
+    }
+
+    public static void sumarCantidadInventario(){
+        System.out.println("Estos son los objetos del inventario a los que sumar o restar cantidad:");
+        showAllInventario();
+        Inventario toChange;
+        do{
+            System.out.println("Introduce el ID del objeto cuya cantidad quieres cambiar.");
+            toChange = idToInventario(scanner.nextInt());
+            if(toChange != null){
+                System.out.println("Objeto seleccionado: " + idToObjeto(toChange.getId_objeto()).getNombre());
+                System.out.println("Cantidad actual: " + toChange.getCantidad());
+            }
+            else
+                System.out.println("El ID introducido no corresponde a ningun objeto. Vuelve a intentarlo.");
+        }while(toChange == null);
+
+
+        int sumando;
+        
+        System.out.println("Cuantas unidades quieres sumar? Introduce un numero negativo para restar.");
+        sumando = scanner.nextInt();
+
+        InventarioDAO.addQuantity(toChange, sumando);
     }
 }

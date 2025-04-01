@@ -65,4 +65,25 @@ public class ObjetoDAO {
             }
         }
     }
+
+    public static int getLastId() {
+        int lastId = 0;
+
+        Connection conexion = ConexionDB.connectDB();
+
+        if(conexion != null){
+            String query = "SELECT MAX(id) AS last_id FROM objeto";
+            try(PreparedStatement statement = conexion.prepareStatement(query)){
+                ResultSet resultSet = statement.executeQuery();
+
+                if(resultSet.next()){
+                    lastId = resultSet.getInt("last_id");
+                }
+
+            }catch(SQLException e){
+                System.err.println("Error al obtener el último ID de la base de datos: "+ e.getMessage());
+            }
+        }
+        return lastId;
+    }
 }

@@ -225,22 +225,25 @@ public class App {
         int menu_invetario_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver inventario\n2 - Modificar cantidad de objeto\n3 - Gestion de objetos \n4 - Gestion de pedidos\n5 - Busqueda por ID\n6 - Salir del menu de inventario");
+            System.out.println("Que quieres hacer?\n1 - Ver inventario\n2 - Modificar cantidad de objeto\n3 - Sumar cantidad a objeto\n4 - Gestion de objetos \n5 - Gestion de pedidos\n6 - Salir del menu de inventario");
             menu_invetario_opcion = scanner.nextInt();
 
             switch (menu_invetario_opcion) {
                 case 1 -> {
-                    //Inventario.printAll()
+                    Taller.showCurrentInventario();
                 }
                 case 2 -> {
-                    //Inventario.changeQuantity();
+                    Taller.cambiarCantidadInventario();
                 }
-                case 3 -> { menuObjetos(); }
-                case 4 -> {
-                    //menuPedidos()
+                case 3 -> {
+                    Taller.sumarCantidadInventario();
                 }
+                case 4 -> { 
+                    menuObjetos(); 
+                }
+
                 case 5 -> {
-                    //Inventario.showDetails();
+                    menuPedidos();
                 }
                 case 6 -> { System.out.println("Saliendo del menu de inventario..."); }
 
@@ -279,7 +282,7 @@ public class App {
         int menu_pedidos_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver pedidos por llegar\n2 - Nuevo pedido\n3 - Borrar pedido \n4 - Editar pedido\n5 - Marcar llegada de pedido\n6 - Ver pedidos completados\n7 - Gestion de proveedores\n8 - Salir del menu de objetos");
+            System.out.println("Que quieres hacer?\n1 - Ver pedidos por llegar\n2 - Nuevo pedido\n3 - Borrar pedido \n4 - Editar pedido\n5 - Marcar llegada de pedido\n6 - Ver pedidos completados\n7 - Gestion de proveedores\n8 - Gestion de objetos\n9 - Salir del menu de objetos");
             menu_pedidos_opcion = scanner.nextInt();
 
             switch (menu_pedidos_opcion) {
@@ -301,8 +304,13 @@ public class App {
                 case 6 -> {
                     //Objeto.details();
                 }
-                case 7 -> { menuProveedores(); }
-                case 8 -> { System.out.println("Saliendo del menu de pedidos..."); }
+                case 7 -> { 
+                    menuProveedores(); 
+                }
+                case 8 -> { 
+                    menuObjetos(); 
+                }
+                case 9 -> { System.out.println("Saliendo del menu de pedidos..."); }
 
                 default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 8.");
             }
