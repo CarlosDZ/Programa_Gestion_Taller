@@ -160,28 +160,38 @@ public class App {
         int menu_citas_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver todas las citas\n2 - Nueva cita\n3 - Borrar cita\n4 - Editar cita\n5 - Gestionar servicios\n6 - Salir del menu de citas");
+            System.out.println("Que quieres hacer?\n1 - Ver todas las citas\n2 - Ver citas no completadas\n3 - Ver citas ya completadas\n4 - Nueva cita\n5 - Borrar cita\n6 - Editar cita\n7 - Cambiar estado de cita\n8 - Gestionar servicios\n9 - Salir del menu de citas");
             menu_citas_opcion = scanner.nextInt();
 
             switch (menu_citas_opcion) {
                 case 1 -> {
-                    //Taller.printAllCitas()
+                    Taller.showAllCitas();
                 }
                 case 2 -> {
-                    //Taller.newCita()
+                    Taller.showCitasPendientes();
                 }
                 case 3 -> {
-                    //Taller.delCita()
+                    Taller.showCitasRealizadas();
                 }
                 case 4 -> {
+                    Taller.newCita();
+                }
+                case 5 -> {
+                    Taller.delCita();
+                }
+                case 6 -> {
+                    System.out.println("No te lo vas a creer saul, pero esto me ha dado mucha pereza de hacer :(");
                     //Cita.edit()
                 }
-                case 5 -> { menuServicios(); }
-                case 6 -> { System.out.println("Saliendo del menu de citas..."); }
-                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
+                case 7 -> {
+                    Taller.changeCitaStatus();
+                }
+                case 8 -> { menuServicios(); }
+                case 9 -> { System.out.println("Saliendo del menu de citas..."); }
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 9.");
             }
 
-        } while (menu_citas_opcion != 6);
+        } while (menu_citas_opcion != 9);
     }
 
     public static void menuServicios(){

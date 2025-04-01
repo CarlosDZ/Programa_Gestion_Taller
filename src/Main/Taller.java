@@ -303,5 +303,97 @@ public class Taller {
             System.out.println("No hay ningun servicio con ese ID en la base de datos.");
     }
 
-    
+    public static void showCitasPendientes(){
+        ArrayList<Cita> lista_citas = CitaDAO.getAll();
+        if(!lista_citas.isEmpty()){
+            System.out.println("-------------------------------------");
+            CitaView.showNoRealizados(lista_citas);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de citas de la base de datos esta vacia.");
+    }
+    public static void showCitasRealizadas(){
+        ArrayList<Cita> lista_citas = CitaDAO.getAll();
+        if(!lista_citas.isEmpty()){
+            System.out.println("-------------------------------------");
+            CitaView.showRealizados(lista_citas);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de citas de la base de datos esta vacia.");
+    }
+    public static void showAllCitas(){
+        ArrayList<Cita> lista_citas = CitaDAO.getAll();
+        if(!lista_citas.isEmpty()){
+            System.out.println("-------------------------------------");
+            CitaView.quickGeneralView(lista_citas);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de citas de la base de datos esta vacia.");
+    }
+    public static void newCita(){
+        System.out.println("Introduce el ID del vehiculo al que quieres asignar una cita.");
+        Vehiculo vehiculo;
+        do { 
+            vehiculo = idToVehiculo(scanner.nextInt());
+            if (vehiculo != null) {
+                System.out.println("Vehiculo seleccionado: " + vehiculo.getLicense_plate());
+            } else {
+                System.out.println("El ID introducido no es correcto, prueba de nuevo.");
+            }
+        } while (vehiculo == null);
+
+        System.out.println("Introduce la fecha de la cita (Formato: YYYY-MM-DD)");
+        String fecha = scanner.next();
+
+        System.out.println("Introduce la hora de la cita (Formato: HH:MM)");
+        String hora = scanner.next();
+
+        System.out.println("Estos son los servicios disponibles: ");
+        showAllServicios();
+        Servicio servicio;
+        do { 
+            System.out.println("Introduce el ID del servicio que quieres asignar a la cita.");
+            servicio = idToServicio(scanner.nextInt());
+            if (servicio == null) {
+                System.out.println("El ID introducido no es correcto, prueba de nuevo.");
+            } else {
+                System.out.println("Servicio seleccionado: " + servicio.getName());
+            }
+        } while (servicio == null);
+
+        CitaDAO.insert(new Cita(vehiculo.getId(),servicio.getId(), fecha, hora));
+    }
+
+    public static void delCita(){
+        System.out.println("Introduce el ID de la cita que quieres eliminar.");
+        int id = scanner.nextInt();
+
+        Cita toDelete = idToCita(id);
+        if(toDelete != null) CitaDAO.delete(toDelete);
+        else
+            System.out.println("No hay ninguna cita con ese ID en la base de datos.");
+    }
+
+    public static Cita idToCita(int id){
+        for(Cita cita : CitaDAO.getAll()){
+            if(cita.getId() == id) return cita;
+        }
+        return null;
+    }
+
+    public static void changeCitaStatus(){
+        System.out.println("Introduce el ID de la cita que quieres cambiar.");
+        int id = scanner.nextInt();
+
+        Cita toChange = idToCita(id);
+        if(toChange != null) {
+            //Parte del dinero
+            CitaDAO.changeState(toChange);
+        }
+        else
+            System.out.println("No hay ninguna cita con ese ID en la base de datos.");
+    }
 }
