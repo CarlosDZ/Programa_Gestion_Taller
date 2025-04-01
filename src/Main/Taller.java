@@ -396,4 +396,42 @@ public class Taller {
         else
             System.out.println("No hay ninguna cita con ese ID en la base de datos.");
     }
+
+    public static void showAllProveedores(){
+        ArrayList<Proveedor> lista_proveedores = ProveedorDAO.getAll();
+        if(!lista_proveedores.isEmpty()){
+            System.out.println("-------------------------------------");
+            ProveedorView.quickGeneralView(lista_proveedores);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de proveedores de la base de datos esta vacia.");
+    }
+
+    public static void newProveedor(){
+        System.out.println("Introduce el nombre que quieres darle a tu nuevo proveedor.");
+        String name = scanner.nextLine();
+
+        System.out.println("Introduce su correo electronico.");
+        String mail = scanner.next();
+
+
+        ProveedorDAO.insert(new Proveedor(name, mail));
+    }
+
+    public static void delProveedor(){
+        System.out.println("Introduce el ID del proveedor que quieres eliminar.");
+        int id = scanner.nextInt();
+
+        Proveedor toDelete = idToProveedor(id);
+        if(toDelete != null) ProveedorDAO.delete(toDelete);
+        else
+            System.out.println("No hay ningun proveedor con ese ID en la base de datos.");
+    }
+    public static Proveedor idToProveedor(int id){
+        for(Proveedor proveedor : ProveedorDAO.getAll()){
+            if(proveedor.getId() == id) return proveedor;
+        }
+        return null;
+    }
 }

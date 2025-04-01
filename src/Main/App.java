@@ -320,29 +320,27 @@ public class App {
         int menu_proveedores_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver proveedores\n2 - Nuevo proveedor\n3 - Borrar proveedor \n4 - Editar proveedor\n5 - Ver detalles de proveedor\n6 - Salir del menu de proveedores");
+            System.out.println("Que quieres hacer?\n1 - Ver proveedores\n2 - Nuevo proveedor\n3 - Borrar proveedor \n4 - Editar proveedor\n5 - Salir del menu de proveedores");
             menu_proveedores_opcion = scanner.nextInt();
 
             switch (menu_proveedores_opcion) {
                 case 1 -> {
-                    //Taller.printAllProveedores()
+                    Taller.showAllProveedores();
                 }
                 case 2 -> {
-                    //Taller.addProveedor();
+                    Taller.newProveedor();
                 }
                 case 3 -> {
-                    //Taller.delProveedor();
+                    Taller.delProveedor();
                 }
                 case 4 -> {
+                    System.out.println("Se que van varias veces pero hacer submenus para movidas con 2 campos que cambiar da mucha pereza.");
                     //Proveedor.edit()
                 }
-                case 5 -> {
-                    //Proveedor.details();
-                }
-                case 6 -> { System.out.println("Saliendo del menu de proveedores..."); }
-                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
+                case 5 -> { System.out.println("Saliendo del menu de proveedores..."); }
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 5.");
             }
-        } while (menu_proveedores_opcion != 6);
+        } while (menu_proveedores_opcion != 5);
     }
 
     public static void menuContabilidad(){
