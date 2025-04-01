@@ -51,3 +51,8 @@ CREATE TABLE proveedores(
     name VARCHAR(100) NOT NULL,
     mail VARCHAR(100)
 );
+
+CREATE TABLE objeto(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+)

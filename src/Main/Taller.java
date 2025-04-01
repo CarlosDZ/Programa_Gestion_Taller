@@ -434,4 +434,36 @@ public class Taller {
         }
         return null;
     }
+    public static void showAllObjetos(){
+        ArrayList<Objeto> lista_objetos = ObjetoDAO.getAll();
+        if(!lista_objetos.isEmpty()){
+            System.out.println("Estos son los objetos disponibles: ");
+            System.out.println("-------------------------------------");
+            ObjetoView.quickGeneralView(lista_objetos);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de objetos de la base de datos esta vacia.");
+    }
+    public static void newObjeto(){
+        System.out.println("Introduce el nombre que quieres darle a tu nuevo objeto.");
+        String name = scanner.nextLine();
+
+        ObjetoDAO.insert(new Objeto(name));
+    }
+    public static void delObjeto(){
+        System.out.println("Introduce el ID del objeto que quieres eliminar.");
+        int id = scanner.nextInt();
+
+        Objeto toDelete = idToObjeto(id);
+        if(toDelete != null) ObjetoDAO.delete(toDelete);
+        else
+            System.out.println("No hay ningun objeto con ese ID en la base de datos.");
+    }
+    public static Objeto idToObjeto(int id){
+        for(Objeto objeto : ObjetoDAO.getAll()){
+            if(objeto.getId() == id) return objeto;
+        }
+        return null;
+    }
 }

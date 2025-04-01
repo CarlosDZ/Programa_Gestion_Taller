@@ -254,31 +254,25 @@ public class App {
         int menu_objetos_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver objetos\n2 - Nuevo objeto\n3 - Borrar objeto \n4 - Editar Objetos\n5 - Ver informacion detallada de un objeto\n6 - Salir del menu de objetos");
+            System.out.println("Que quieres hacer?\n1 - Ver objetos\n2 - Nuevo objeto\n3 - Borrar objeto \n4 - Salir del menu de objetos");
             menu_objetos_opcion = scanner.nextInt();
 
             switch (menu_objetos_opcion) {
                 case 1 -> {
-                    //Taller.printAllObjetos()
+                    Taller.showAllObjetos();
                 }
                 case 2 -> {
-                    //Taller.addObjeto();
+                    Taller.newObjeto();
                 }
                 case 3 -> {
-                    //Taller.delObjeto();
+                    Taller.delObjeto();
                 }
-                case 4 -> {
-                    //Objeto.edit()
-                }
-                case 5 -> {
-                    //Objeto.details();
-                }
-                case 6 -> { System.out.println("Saliendo del menu de objetos..."); }
+                case 4 -> { System.out.println("Saliendo del menu de objetos..."); }
 
-                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 6.");
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 4.");
             }
 
-        } while (menu_objetos_opcion != 6);
+        } while (menu_objetos_opcion != 4);
     }
 
     public static void menuPedidos(){
