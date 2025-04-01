@@ -282,7 +282,7 @@ public class App {
         int menu_pedidos_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver pedidos por llegar\n2 - Nuevo pedido\n3 - Borrar pedido \n4 - Editar pedido\n5 - Marcar llegada de pedido\n6 - Ver pedidos completados\n7 - Gestion de proveedores\n8 - Gestion de objetos\n9 - Salir del menu de objetos");
+            System.out.println("Que quieres hacer?\n1 - Ver pedidos por llegar\n2 - Nuevo pedido\n3 - Borrar pedido \n4 - Editar pedido\n5 - Marcar llegada de pedido\n6 - Ver pedidos completados\n7 - Gestion de proveedores\n8 - Gestion de objetos\n9 - Cancelar llegada de pedido\n10 - Salir del menu de objetos");
             menu_pedidos_opcion = scanner.nextInt();
 
             switch (menu_pedidos_opcion) {
@@ -310,12 +310,15 @@ public class App {
                 case 8 -> { 
                     menuObjetos(); 
                 }
-                case 9 -> { System.out.println("Saliendo del menu de pedidos..."); }
+                case 9 -> {
+                    //Objeto.details();
+                }
+                case 10 -> { System.out.println("Saliendo del menu de pedidos..."); }
 
-                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 8.");
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 10.");
             }
 
-        } while (menu_pedidos_opcion != 8);
+        } while (menu_pedidos_opcion != 10);
     }
 
     public static void menuProveedores(){
