@@ -357,7 +357,9 @@ public class App {
             menu_contabilidad_opcion = scanner.nextInt();
 
             switch (menu_contabilidad_opcion) {
-                case 1 -> { Taller.getCurMoney(); }
+                case 1 -> { 
+                    //Taller.getCurMoney(); 
+                }
                 case 2 -> {
                     //Taller.printTransactionHistory();
                 }

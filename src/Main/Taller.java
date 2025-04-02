@@ -6,17 +6,14 @@ import model.*;
 import view.*;
 
 public class Taller {
-    private static final String NAME = "Nombre_Taller";
+    private static final String NAME = "Nombre_Taller_Ejemplo";
     static Scanner scanner = new Scanner(System.in);
 
-    //Variables
-    private static Double current_money;
 
     public static String getName(){ return Taller.NAME; }
-    public static Double getCurMoney(){ return Taller.current_money; }
 
 
-    //Creacion de objetos
+    //Funciones
     public static void newCliente(){
         System.out.println("Introduce el nombre que quieres darle a tu nuevo cliente.");
         String name = scanner.nextLine();
@@ -38,7 +35,6 @@ public class Taller {
 
         ClienteDAO.insert(new Cliente(name, phone, location, type));
     }
-
     public static void showAllClientes(){
         ArrayList<Cliente> lista_clientes = ClienteDAO.getAll();
         if(!lista_clientes.isEmpty()){
@@ -49,14 +45,12 @@ public class Taller {
         else
             System.out.println("La lista de clientes de la base de datos esta vacia.");
     }
-
     public static Cliente idToCliente(int id){
         for(Cliente cliente : ClienteDAO.getAll()){
             if(cliente.getID() == id) return cliente;
         }
         return null;
     }
-
     public static void delCliente(){
         System.out.println("Introduce el ID del cliente que quieres eliminar.");
         int id = scanner.nextInt();
@@ -66,7 +60,6 @@ public class Taller {
         else
             System.out.println("No hay ningun cliente con ese ID en la base de datos.");
     }
-
     public static void editCliente(){
         System.out.println("Introduce el ID del cliente que quieres editar.");
         int id = scanner.nextInt();
@@ -76,7 +69,6 @@ public class Taller {
         else
             System.out.println("El ID introducido no corresponde a ningun cliente. Volviendo al menu de clientes...");
     }
-
     public static void describeCliente(){
         System.out.println("Introduce el ID del cliente cuya informacion quieres ver.");
         int id = scanner.nextInt();
@@ -125,7 +117,6 @@ public class Taller {
         }
         return null;
     }
-
     public static void showAllTiposVehiculos(){
         ArrayList<TipoVehiculo> lista_tipoVehiculo = TipoVehiculoDAO.getAll();
         if(!lista_tipoVehiculo.isEmpty()){
@@ -162,7 +153,6 @@ public class Taller {
         else
             System.out.println("La lista de vehiculos de la base de datos esta vacia.");
     }
-
     public static void newVehiculo(){
         System.out.println("Introduce el modelo del vehiculo.");
         String model = scanner.nextLine();
@@ -202,7 +192,6 @@ public class Taller {
 
         VehiculoDAO.insert(new Vehiculo(model, year, license_plate, marca.getId(), tipoVehiculo.getId()));
     }
-
     public static void delVehiculo(){
         System.out.println("Introduce el ID del vehiculo que quieres eliminar.");
         int id = scanner.nextInt();
@@ -218,7 +207,6 @@ public class Taller {
         }
         return null;
     }
-
     public static void linkVehiculoToCliente(){
         System.out.println("Estos son los vehiculos disponibles: ");
         showAllVehiculos();
@@ -250,7 +238,6 @@ public class Taller {
 
         VehiculoDAO.actualizarOwner(toLink, owner);
     }
-
     public static void describeVehiculo(){
         System.out.println("Introduce el ID del vehiculo cuya informacion quieres ver.");
         Vehiculo toDescribe;
@@ -271,7 +258,6 @@ public class Taller {
         }
         return null;
     }
-
     public static void showAllServicios(){
         ArrayList<Servicio> lista_servicios = ServicioDAO.getAll();
         if(!lista_servicios.isEmpty()){
@@ -282,7 +268,6 @@ public class Taller {
         else
             System.out.println("La lista de servicios de la base de datos esta vacia.");
     }
-
     public static void newServicio(){
         System.out.println("Introduce el nombre que quieres darle a tu nuevo servicio.");
         String name = scanner.nextLine();
@@ -292,7 +277,6 @@ public class Taller {
 
         ServicioDAO.insert(new Servicio(name, precio));
     }
-
     public static void delServicio(){
         System.out.println("Introduce el ID del servicio que quieres eliminar.");
         int id = scanner.nextInt();
@@ -366,7 +350,6 @@ public class Taller {
 
         CitaDAO.insert(new Cita(vehiculo.getId(),servicio.getId(), fecha, hora));
     }
-
     public static void delCita(){
         System.out.println("Introduce el ID de la cita que quieres eliminar.");
         int id = scanner.nextInt();
@@ -376,14 +359,12 @@ public class Taller {
         else
             System.out.println("No hay ninguna cita con ese ID en la base de datos.");
     }
-
     public static Cita idToCita(int id){
         for(Cita cita : CitaDAO.getAll()){
             if(cita.getId() == id) return cita;
         }
         return null;
     }
-
     public static void changeCitaStatus(){
         System.out.println("Introduce el ID de la cita que quieres cambiar.");
         int id = scanner.nextInt();
@@ -407,7 +388,6 @@ public class Taller {
         else
             System.out.println("La lista de proveedores de la base de datos esta vacia.");
     }
-
     public static void newProveedor(){
         System.out.println("Introduce el nombre que quieres darle a tu nuevo proveedor.");
         String name = scanner.nextLine();
@@ -418,7 +398,6 @@ public class Taller {
 
         ProveedorDAO.insert(new Proveedor(name, mail));
     }
-
     public static void delProveedor(){
         System.out.println("Introduce el ID del proveedor que quieres eliminar.");
         int id = scanner.nextInt();
@@ -434,6 +413,7 @@ public class Taller {
         }
         return null;
     }
+    
     public static void showAllObjetos(){
         ArrayList<Objeto> lista_objetos = ObjetoDAO.getAll();
         if(!lista_objetos.isEmpty()){
@@ -464,19 +444,19 @@ public class Taller {
         else
             System.out.println("No hay ningun objeto con ese ID en la base de datos.");
     }
-    private static Inventario idToInventario(int id) {
-        for(Inventario inventario : InventarioDAO.getInventario()){
-            if(inventario.getId_objeto() == id) return inventario;
-        }
-        return null;
-    }
     public static Objeto idToObjeto(int id){
         for(Objeto objeto : ObjetoDAO.getAll()){
             if(objeto.getId() == id) return objeto;
         }
         return null;
     }
-
+    
+    public static Inventario idToInventario(int id) {
+        for(Inventario inventario : InventarioDAO.getInventario()){
+            if(inventario.getId_objeto() == id) return inventario;
+        }
+        return null;
+    }
     public static void showCurrentInventario(){
         ArrayList<Inventario> lista_inventario = InventarioDAO.getInventario();
         if(!lista_inventario.isEmpty()){
@@ -499,7 +479,6 @@ public class Taller {
         else
             System.out.println("La lista de inventario de la base de datos esta vacia.");
     }
-
     public static void cambiarCantidadInventario(){
         System.out.println("Estos son los objetos del inventario cuya capacidad puedes cambiar:");
         showAllInventario();
@@ -525,7 +504,6 @@ public class Taller {
 
         InventarioDAO.changeQuantity(toChange, newQuantity);
     }
-
     public static void sumarCantidadInventario(){
         System.out.println("Estos son los objetos del inventario a los que sumar o restar cantidad:");
         showAllInventario();
@@ -599,7 +577,6 @@ public class Taller {
 
         PedidoDAO.insert(new Pedido(proveedor.getId(), contenido));
     }
-
     public static void showAllPedidos(){
         ArrayList<Pedido> lista_pedidos = PedidoDAO.getAll();
         if(!lista_pedidos.isEmpty()){
@@ -622,7 +599,6 @@ public class Taller {
         else
             System.out.println("La lista de pedidos de la base de datos esta vacia.");
     }
-
     public static void showAllPedidosCompletados(){
         ArrayList<Pedido> lista_pedidos = PedidoDAO.getAll();
         if(!lista_pedidos.isEmpty()){
@@ -634,7 +610,6 @@ public class Taller {
         else
             System.out.println("La lista de pedidos de la base de datos esta vacia.");
     }
-
     public static void delPedido(){
         System.out.println("Estos son los pedidos disponibles:");
         showAllPedidos();
@@ -664,7 +639,6 @@ public class Taller {
         }
         return null;
     }
-
     public static void changePedidoState(){
         System.out.println("Estos son los pedidos disponibles:");
         showAllPedidos();
@@ -708,7 +682,6 @@ public class Taller {
             }
         }
     }
-
     public static void describePedido(){
         System.out.println("Introduce el ID del pedido cuya informacion quieres ver.");
         int id = scanner.nextInt();
