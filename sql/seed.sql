@@ -1,3 +1,6 @@
+DROP DATABASE IF EXISTS Taller_prueba_1;
+CREATE DATABASE Taller_prueba_1;
+USE Taller_prueba_1;
 CREATE TABLE clientes(
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
