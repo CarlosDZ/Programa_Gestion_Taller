@@ -282,27 +282,28 @@ public class App {
         int menu_pedidos_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver pedidos por llegar\n2 - Nuevo pedido\n3 - Borrar pedido \n4 - Editar pedido\n5 - Marcar llegada de pedido\n6 - Ver pedidos completados\n7 - Gestion de proveedores\n8 - Gestion de objetos\n9 - Cancelar llegada de pedido\n10 - Salir del menu de objetos");
+            System.out.println("Que quieres hacer?\n1 - Ver pedidos por llegar\n2 - Nuevo pedido\n3 - Borrar pedido \n4 - Editar pedido\n5 - Marcar o Cancelar llegada de pedido\n6 - Ver pedidos completados\n7 - Gestion de proveedores\n8 - Gestion de objetos\n9 - Ver detalles de un pedido\n10 - Salir del menu de pedidos");
             menu_pedidos_opcion = scanner.nextInt();
 
             switch (menu_pedidos_opcion) {
                 case 1 -> {
-                    //Taller.printAllObjetos()
+                    Taller.showAllPedidosPendientes();
                 }
                 case 2 -> {
-                    //Taller.addObjeto();
+                    Taller.newPedido();
                 }
                 case 3 -> {
-                    //Taller.delObjeto();
+                    Taller.delPedido();
                 }
                 case 4 -> {
-                    //Objeto.edit()
+                    //XD
+                    System.out.println("Luego lo programo");
                 }
                 case 5 -> {
-                    //Objeto.details();
+                    Taller.changePedidoState();
                 }
                 case 6 -> {
-                    //Objeto.details();
+                    Taller.showAllPedidosCompletados();
                 }
                 case 7 -> { 
                     menuProveedores(); 
@@ -311,7 +312,7 @@ public class App {
                     menuObjetos(); 
                 }
                 case 9 -> {
-                    //Objeto.details();
+                    Taller.describePedido();
                 }
                 case 10 -> { System.out.println("Saliendo del menu de pedidos..."); }
 

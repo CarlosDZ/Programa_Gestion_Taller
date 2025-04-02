@@ -549,4 +549,173 @@ public class Taller {
 
         InventarioDAO.addQuantity(toChange, sumando);
     }
+
+    public static void newPedido(){
+        System.out.println("Estos son los proveedores disponibles:");
+        showAllProveedores();
+        Proveedor proveedor;
+        do { 
+            System.out.println("Introduce el ID del proveedor al que quieres hacer un pedido.");
+            proveedor = idToProveedor(scanner.nextInt());
+            if (proveedor != null) {
+                System.out.println("Proveedor seleccionado: " + proveedor.getNombre());
+            } else {
+                System.out.println("El ID introducido no es correcto, prueba de nuevo.");
+            }
+        } while (proveedor == null);
+
+        ArrayList<Inventario> contenido = new ArrayList<>();
+        int id_objeto;
+        int cantidad;
+        boolean continuar = true;
+        do{
+            System.out.println("Estos son los objetos disponibles:");
+            showAllObjetos();
+            do{
+                System.out.println("Introduce el ID del objeto que quieres añadir al pedido.");
+                id_objeto = scanner.nextInt();
+                if(idToObjeto(id_objeto) != null){
+                    System.out.println("Objeto seleccionado: " + idToObjeto(id_objeto).getNombre());
+                    System.out.println("Cuantas unidades quieres pedir?");
+                    do{
+                        cantidad = scanner.nextInt();
+                        if(cantidad > 0){
+                            contenido.add(new Inventario(id_objeto, cantidad));
+                            System.out.println("Objeto añadido al pedido.");
+                        }
+                        else
+                            System.out.println("La cantidad no puede ser negativa o cero, prueba de nuevo.");
+                    }while(cantidad <= 0);
+                }
+                else
+                    System.out.println("El ID introducido no corresponde a ningun objeto. Vuelve a intentarlo.");
+            }while(idToObjeto(id_objeto) == null);
+            System.out.println("Quieres añadir otro objeto al pedido? (1 - Si, 2 - No)");
+            if(scanner.nextInt() != 1){
+                continuar = false;
+                System.out.println("OK. Creando el pedido...");
+            }
+        }while(continuar);
+
+        PedidoDAO.insert(new Pedido(proveedor.getId(), contenido));
+    }
+
+    public static void showAllPedidos(){
+        ArrayList<Pedido> lista_pedidos = PedidoDAO.getAll();
+        if(!lista_pedidos.isEmpty()){
+            System.out.println("Estos son los pedidos disponibles:");
+            System.out.println("-------------------------------------");
+            PedidoView.quickGeneralView(lista_pedidos);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de pedidos de la base de datos esta vacia.");
+    }
+    public static void showAllPedidosPendientes(){
+        ArrayList<Pedido> lista_pedidos = PedidoDAO.getAll();
+        if(!lista_pedidos.isEmpty()){
+            System.out.println("Estos son los pedidos pendientes:");
+            System.out.println("-------------------------------------");
+            PedidoView.viewPendientes(lista_pedidos);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de pedidos de la base de datos esta vacia.");
+    }
+
+    public static void showAllPedidosCompletados(){
+        ArrayList<Pedido> lista_pedidos = PedidoDAO.getAll();
+        if(!lista_pedidos.isEmpty()){
+            System.out.println("Estos son los pedidos completados:");
+            System.out.println("-------------------------------------");
+            PedidoView.viewCompletados(lista_pedidos);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de pedidos de la base de datos esta vacia.");
+    }
+
+    public static void delPedido(){
+        System.out.println("Estos son los pedidos disponibles:");
+        showAllPedidos();
+        System.out.println("AVISO: No se recomienda eliminar pedidos sin tener cuidado, ya que estos influyen en el inventario y la contabilidad.");
+        System.out.println("Introduce el ID del pedido que quieres eliminar.");
+        int id = scanner.nextInt();
+
+        Pedido toDelete = idToPedido(id);
+        if(toDelete != null){
+            if(toDelete.isCompleated()){
+                System.out.println("El pedido que desea eliminar ya esta completado, por lo que es posible que sus objetos se hayan sumado al inventario. Quiere restar los objetos automaticamente del inventario (Esto no los reducira por debajo de 0)? (1 - Si, 2 - No)");
+                if(scanner.nextInt() == 1){
+                    for(Inventario inventario : toDelete.getContenido()){
+                        InventarioDAO.addQuantity(inventario, -inventario.getCantidad());
+                    }
+                }
+            }
+            PedidoDAO.delete(toDelete);
+            System.out.println("Pedido eliminado.");
+        }
+        else
+            System.out.println("No hay ningun pedido con ese ID en la base de datos.");
+    }
+    public static Pedido idToPedido(int id){
+        for(Pedido pedido : PedidoDAO.getAll()){
+            if(pedido.getId() == id) return pedido;
+        }
+        return null;
+    }
+
+    public static void changePedidoState(){
+        System.out.println("Estos son los pedidos disponibles:");
+        showAllPedidos();
+        System.out.println("Introduce el ID del pedido cuyo estado quieres cambiar.");
+        int id = scanner.nextInt();
+
+        Pedido toChange = idToPedido(id);
+        if(toChange == null) 
+            System.out.println("No hay ningun pedido con ese ID en la base de datos.");
+        
+        else if(toChange.isCompleated()){
+            System.out.println("El pedido seleccionado esta completado, quieres cambiarlo a pendiente? (1 - Si, 2 - No)");
+            if(scanner.nextInt() != 1)
+                System.out.println("OK. El pedido no ha sido alterado.");
+            else{
+                System.out.println("Al cambiar un pedido a pendiente, puedes decidir si quieres restar los objetos del inventario automaticamente. Esto no reducira su cantidad por debajo de 0 (1 - Si, 2 - No)");
+                if(scanner.nextInt() != 1)
+                    System.out.println("OK. El inventario no ha sido alterado.");
+                    else{
+                        InventarioDAO.autoRemoveCantidadesPedido(toChange);
+                    }
+                PedidoDAO.changeState(toChange);
+                System.out.println("Pedido cambiado a pendiente.");
+            }
+            
+            
+        }
+        else{
+            System.out.println("El pedido seleccionado esta pendiente, quieres cambiarlo a completado? (1 - Si, 2 - No)");
+            if(scanner.nextInt() != 1)
+                System.out.println("OK. El pedido no ha sido alterado.");
+            else{
+                System.out.println("Al cambiar un pedido a completado, puedes decidir si quieres sumar los objetos al inventario automaticamente.(1 - Si, 2 - No)");
+                if(scanner.nextInt() != 1)
+                    System.out.println("OK. El inventario no ha sido alterado.");
+                    else{
+                        InventarioDAO.addCantidadesPedido(toChange);
+                    }
+                PedidoDAO.changeState(toChange);
+                System.out.println("Pedido cambiado a completado.");
+            }
+        }
+    }
+
+    public static void describePedido(){
+        System.out.println("Introduce el ID del pedido cuya informacion quieres ver.");
+        int id = scanner.nextInt();
+
+        if(idToPedido(id) != null)
+            idToPedido(id).details();
+        else
+            System.out.println("El ID introducido no corresponde a ningun pedido. Volviendo al menu de pedidos...");
+    }
 }

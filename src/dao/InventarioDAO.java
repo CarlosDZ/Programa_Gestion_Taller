@@ -3,6 +3,7 @@ package dao;
 import java.sql.*;
 import java.util.ArrayList;
 import model.Inventario;
+import model.Pedido;
 
 public class InventarioDAO {
     public static ArrayList<Inventario> getInventario(){
@@ -84,5 +85,53 @@ public class InventarioDAO {
                 System.err.println("Error al agregar cantidad en el inventario: " + e.getMessage());
             }
         }
+    }
+
+    public static void addCantidadesPedido(Pedido pedido){
+        ArrayList<Inventario> objetos_pedido = pedido.getContenido();
+        for (Inventario objeto : objetos_pedido) {
+            InventarioDAO.addQuantity(objeto, objeto.getCantidad());
+        }
+    }
+
+    public static void removeCantidadesPedido(Pedido pedido){
+        ArrayList<Inventario> objetos_pedido = pedido.getContenido();
+        for (Inventario objeto : objetos_pedido) {
+            InventarioDAO.addQuantity(objeto, -objeto.getCantidad());
+        }
+    }
+
+    public static void autoRemoveCantidadesPedido(Pedido pedido){
+        ArrayList<Inventario> objetos_pedido = pedido.getContenido();
+        for (Inventario objeto : objetos_pedido) {
+
+            if(getCantidadEnInventario(objeto) - objeto.getCantidad() >= 0){
+            InventarioDAO.addQuantity(objeto, -objeto.getCantidad());
+            }
+            else{
+                System.out.println("AVISO: La cantidad del objeto " + objeto.getId_objeto() + " iba a volverse menor a 0, por lo que se ha cambiado a 0. Se ruega revision manual del inventario.");
+                InventarioDAO.changeQuantity(objeto, 0);
+            }
+        }
+    }
+
+    public static int getCantidadEnInventario(Inventario inventario){
+        Connection conexion = ConexionDB.connectDB();
+        int cantidad = 0;
+
+        if (conexion != null) {
+            String query = "SELECT cantidad FROM inventario WHERE id_objeto = ?";
+            try (PreparedStatement preparedStatement = conexion.prepareStatement(query)) {
+                preparedStatement.setInt(1, inventario.getId_objeto());
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    cantidad = resultSet.getInt("cantidad");
+                }
+            } catch (SQLException e) {
+                System.err.println("Error al obtener la cantidad del objeto: " + e.getMessage());
+            }
+        }
+
+        return cantidad;
     }
 }

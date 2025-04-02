@@ -57,7 +57,23 @@ CREATE TABLE objeto(
     name VARCHAR(100) NOT NULL
 );
 CREATE TABLE inventario(
+    id INT AUTO_INCREMENT PRIMARY KEY,
     id_objeto INT UNIQUE,
+    FOREIGN KEY (id_objeto) REFERENCES objeto(id),
+    cantidad INT NOT NULL DEFAULT 0
+);
+
+CREATE TABLE pedidos(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_proveedor INT NOT NULL,
+    FOREIGN KEY (id_proveedor) REFERENCES proveedores(id),
+    compleated BOOLEAN DEFAULT FALSE
+);
+CREATE TABLE pedidos_aux(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_pedido INT NOT NULL,
+    FOREIGN KEY (id_pedido) REFERENCES pedidos(id),
+    id_objeto INT NOT NULL,
     FOREIGN KEY (id_objeto) REFERENCES objeto(id),
     cantidad INT NOT NULL DEFAULT 0
 );
