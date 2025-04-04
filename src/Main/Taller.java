@@ -193,6 +193,8 @@ public class Taller {
         VehiculoDAO.insert(new Vehiculo(model, year, license_plate, marca.getId(), tipoVehiculo.getId()));
     }
     public static void delVehiculo(){
+        System.out.println("Estos son los vehiculos disponibles: ");
+        showAllVehiculos();
         System.out.println("Introduce el ID del vehiculo que quieres eliminar.");
         int id = scanner.nextInt();
 
