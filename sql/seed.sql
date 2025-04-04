@@ -27,7 +27,6 @@ CREATE TABLE vehiculos(
     year INT NOT NULL,
     license_plate VARCHAR(10) UNIQUE NOT NULL,
     client_id INT,
-    FOREIGN KEY (client_id) REFERENCES clientes(id),
     id_type INT NOT NULL,
     FOREIGN KEY (id_type) REFERENCES tipos_vehiculos(id)
 );
