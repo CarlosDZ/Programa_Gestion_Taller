@@ -83,7 +83,7 @@ CREATE TABLE tipos_transaccion(
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL
 );
-CREATE TABLE transaccion(
+CREATE TABLE transacciones(
     id INT AUTO_INCREMENT PRIMARY KEY,
     cantidad DOUBLE(10, 2) NOT NULL,
     concepto VARCHAR(200) NOT NULL,
