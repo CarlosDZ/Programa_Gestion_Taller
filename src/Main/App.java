@@ -52,7 +52,7 @@ public class App {
                 case 3 -> { Taller.delCliente(); }
                 case 4 -> { Taller.editCliente(); }
                 case 5 -> {
-                    //Vehiculo.linkToCliente()
+                    Taller.linkVehiculoToCliente();
                 }
                 case 6 -> { Taller.describeCliente(); }
                 case 7 -> { System.out.println("Saliendo del menu de clientes..."); }

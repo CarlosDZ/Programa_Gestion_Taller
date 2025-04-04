@@ -1,8 +1,10 @@
 package model;
 
 import dao.ClienteDAO;
+import dao.VehiculoDAO;
 import java.sql.Date;
 import java.util.Scanner;
+import view.VehiculoView;
 
 public class Cliente {
     Scanner sc = new Scanner(System.in);
@@ -84,9 +86,10 @@ public class Cliente {
             case 2 -> tipo = "Empresa";
             default -> tipo = "Otros";
         }
-        System.out.println(getName()+"\n(ID: "+getID()+")\n\nNum TLF: "+getPhone()+"\nDireccion: "+getLocation());
+        System.out.println("("+getID()+")  "+getName()+"\n\nNum TLF: "+getPhone()+"\nDireccion: "+getLocation());
         System.out.println("\nCliente de tipo "+tipo+" registrado el "+getDate());
 
-        //añadir lista de vehiculos vinculados
+        System.out.println("Vehiculos vinculados a este cliente:");
+        VehiculoView.vehiclesFromOWner(VehiculoDAO.getAll(), this);
     }
 }

@@ -61,6 +61,8 @@ public class Taller {
             System.out.println("No hay ningun cliente con ese ID en la base de datos.");
     }
     public static void editCliente(){
+        System.out.println("Estos son los clientes disponibles: ");
+        showAllClientes();
         System.out.println("Introduce el ID del cliente que quieres editar.");
         int id = scanner.nextInt();
 
@@ -70,6 +72,8 @@ public class Taller {
             System.out.println("El ID introducido no corresponde a ningun cliente. Volviendo al menu de clientes...");
     }
     public static void describeCliente(){
+        System.out.println("Estos son los clientes disponibles: ");
+        showAllClientes();
         System.out.println("Introduce el ID del cliente cuya informacion quieres ver.");
         int id = scanner.nextInt();
 
@@ -454,8 +458,8 @@ public class Taller {
 
         Objeto toDelete = idToObjeto(id);
         if(toDelete != null){
-            ObjetoDAO.delete(toDelete);
             InventarioDAO.delete(idToInventario(id));
+            ObjetoDAO.delete(toDelete);
         }
         else
             System.out.println("No hay ningun objeto con ese ID en la base de datos.");
