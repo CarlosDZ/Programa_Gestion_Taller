@@ -798,6 +798,7 @@ public class Taller {
         System.out.println("Introduce la cantidad de dinero.");
         Double cantidad = scanner.nextDouble();
         System.out.println("Introduce el concepto de la transaccion");
+        scanner.nextLine();
         String concepto = scanner.nextLine();
         
         if(tipo == 1 || tipo == 2) TransaccionDAO.insert(new Transaccion(cantidad, concepto, tipo));
