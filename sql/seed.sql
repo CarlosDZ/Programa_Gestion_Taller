@@ -1,6 +1,7 @@
 DROP DATABASE IF EXISTS Taller_prueba_1;
 CREATE DATABASE Taller_prueba_1;
 USE Taller_prueba_1;
+
 CREATE TABLE clientes(
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -98,3 +99,4 @@ CREATE TABLE transaccion_aux(
     FOREIGN KEY (id_transaccion) REFERENCES transaccion(id),
     id_variable INT NOT NULL
 );
+INSERT INTO tipos_transaccion (id,name) VALUES (0, "Transaccion de correccion manual desde el programa de gestion")
