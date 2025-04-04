@@ -353,62 +353,38 @@ public class App {
         int menu_contabilidad_opcion;
 
         do { 
-            System.out.println("Que quieres hacer?\n1 - Ver balance actual\n2 - Ver historial de transacciones\n3 - Nueva transaccion\n4 - Detalles de una transaccion\n5 - Menu de tipos de transaccion\n6 - Cambiar balance actual (No recomendado)\n7 - Borrar transaccion (No recomendado)\n8 - Editar transaccion (No recomendado)\n9 - Salir del menu de contabilidad");
+            System.out.println("Que quieres hacer?\n1 - Ver balance actual\n2 - Ver historial de transacciones\n3 - Nueva transaccion\n4 - Detalles de una transaccion\n5 - Cambiar balance actual (No recomendado)\n6 - Borrar transaccion (No recomendado)\n7 - Editar transaccion (No recomendado)\n8 - Salir del menu de contabilidad");
             menu_contabilidad_opcion = scanner.nextInt();
 
             switch (menu_contabilidad_opcion) {
                 case 1 -> { 
-                    //Taller.getCurMoney(); 
+                    Taller.verBalanceActual(); 
                 }
                 case 2 -> {
-                    //Taller.printTransactionHistory();
+                    Taller.verHistorialTransacciones();
                 }
                 case 3 -> {
-                    //Taller.addTransaction();
+                    Taller.newTransaccion();
                 }
                 case 4 -> {
-                    //Transaction.details()
+                    Taller.describeTransaccion();
                 }
                 case 5 -> {
-                    menuTiposTransaccion();
+                    Taller.changeBalanceActual();
                 }
                 case 6 -> {
-                    //Taller.balanceChange();
+                    Taller.deleteTransaccion();
                 }
                 case 7 -> {
-                    //Proveedor.delTransaction();
-                }
-                case 8 -> {
                     //Transaction.changeDetails();
+                    System.out.println("Aun no esta programado");
                 }
-                case 9 -> { System.out.println("Saliendo del menu de contabilidad..."); }
-                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 9.");
+                case 8 -> { System.out.println("Saliendo del menu de contabilidad..."); }
+                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 8.");
             }
-        } while (menu_contabilidad_opcion != 9);
+        } while (menu_contabilidad_opcion != 8);
     }
 
-    public static void menuTiposTransaccion(){
-        int menu_tipos_transaccion_opcion;
-
-        do { 
-            System.out.println("Que quieres hacer?\n1 - Listar tipos de transaccion\n2 - Nuevo tipo de transaccion\n3 - Borrar tipo de transaccion\n4 - Salir del menu de tipos de transaccion");
-            menu_tipos_transaccion_opcion = scanner.nextInt();
-
-            switch (menu_tipos_transaccion_opcion) {
-                case 1 -> { 
-                    Taller.showAllTiposTransaccion();
-                }
-                case 2 -> {
-                    Taller.newTipoTransaccion();
-                }
-                case 3 -> {
-                    Taller.delTipoTransaccion();
-                }
-                case 4 -> { System.out.println("Saliendo del menu de tipos de transaccion..."); }
-                default -> System.out.println("El numero no esta en el rango especificado, introduce un numero entre 1 y 4.");
-            }
-        } while (menu_tipos_transaccion_opcion != 4);
-    }
 
     public static String getEnvValue(String key){
         String PATH = ".env";

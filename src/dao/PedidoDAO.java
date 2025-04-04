@@ -126,4 +126,5 @@ public class PedidoDAO {
             System.out.println("Error al eliminar el pedido: " + e.getMessage());
         }
     }
+
 }

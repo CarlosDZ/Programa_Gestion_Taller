@@ -355,7 +355,13 @@ public class Taller {
         int id = scanner.nextInt();
 
         Cita toDelete = idToCita(id);
-        if(toDelete != null) CitaDAO.delete(toDelete);
+        if(toDelete != null){
+            if(toDelete.isCompleated()){
+                System.out.println("La cita que desea eliminar esta completada, asi que se borrara la transaccion vinculada a ella, de haberla.");
+                TransaccionDAO.delete(TransaccionDAO.searchByLinkedEvent(3, toDelete.getId()));
+            }
+            CitaDAO.delete(toDelete);
+        }
         else
             System.out.println("No hay ninguna cita con ese ID en la base de datos.");
     }
@@ -371,7 +377,15 @@ public class Taller {
 
         Cita toChange = idToCita(id);
         if(toChange != null) {
-            //Parte del dinero
+            if(!toChange.isCompleated()){
+                System.out.println("La cita seleccionada no esta completada, por lo que al marcarla como completada se creara una transaccion de cobro vinculada a ella.");
+                String concepto = "Cobro por cita de " + idToVehiculo(toChange.getId_vehiculo()).getLicense_plate() + " por el servicio de " + idToServicio(toChange.getId_servicio()).getName()+" a "+ idToCliente(idToVehiculo(toChange.getId_vehiculo()).getId_owner()).getName();
+                TransaccionDAO.insert(new Transaccion(idToServicio(toChange.getId_servicio()).getPrice(), concepto, 3, toChange.getId()));
+            }
+            else{
+                System.out.println("La cita seleccionada esta completada, por lo que al cambiarla a no completada se eliminara la transaccion de cobro vinculada a ella, de haberla.");
+                TransaccionDAO.delete(TransaccionDAO.searchByLinkedEvent(3, toChange.getId()));
+            }
             CitaDAO.changeState(toChange);
         }
         else
@@ -576,6 +590,11 @@ public class Taller {
         }while(continuar);
 
         PedidoDAO.insert(new Pedido(proveedor.getId(), contenido));
+        System.out.println("Pedido creado. Ahora se va a crear la transaccion vinculada al pedido. Introduce el costo del pedido en numeros positivos.");
+        Double costo = -scanner.nextDouble();
+        String concepto = "Pedido a " + proveedor.getNombre();
+        TransaccionDAO.insert(new Transaccion(costo, concepto, 4, PedidoDAO.getLastID()));
+        System.out.println("Transaccion creada. El pedido ha sido creado y la transaccion vinculada a el.");
     }
     public static void showAllPedidos(){
         ArrayList<Pedido> lista_pedidos = PedidoDAO.getAll();
@@ -628,7 +647,8 @@ public class Taller {
                 }
             }
             PedidoDAO.delete(toDelete);
-            System.out.println("Pedido eliminado.");
+            System.out.println("Pedido eliminado. Ahora se eliminara la transaccion vinculada al pedido.");
+            TransaccionDAO.delete(TransaccionDAO.searchByLinkedEvent(4, id));
         }
         else
             System.out.println("No hay ningun pedido con ese ID en la base de datos.");
@@ -703,30 +723,101 @@ public class Taller {
         else
             System.out.println("La lista de tipos de transacciones de la base de datos esta vacia.");
     }
-    public static void newTipoTransaccion(){
-        System.out.println("Introduce el nombre del nuevo tipo de transaccion.");
-        String name = scanner.nextLine();
-        TipoTransaccion toInsert = new TipoTransaccion(name);
-        TipoTransaccionDAO.insert(toInsert);
-        System.out.println("Tipo de transaccion añadido a la base de datos.");
-    }
-    public static void delTipoTransaccion(){
-        showAllTiposTransaccion();
-        System.out.println("Introduce el ID del tipo de transaccion que quieres eliminar.");
-        int id = scanner.nextInt();
-        TipoTransaccion toDelete = idToTipoTransaccion(id);
-        if(id == 1 || id == 2) System.out.println("Este tipo de transaccion existe, pero no se puede borrar ya que es un tipo creado automaticamente y relacionado con el funcionamiento del programa.");
-        else if(toDelete != null) {
-            TipoTransaccionDAO.delete(toDelete);
-            System.out.println("Tipo de transaccion eliminado.");
-        }
-        else
-            System.out.println("No hay ningun tipo de transaccion con ese ID en la base de datos.");
-    }
     public static TipoTransaccion idToTipoTransaccion(int id){
         for(TipoTransaccion tipoTransaccion : TipoTransaccionDAO.getAll()){
             if(tipoTransaccion.getId() == id) return tipoTransaccion;
         }
         return null;
+    }
+
+    public static void changeBalanceActual(){
+        System.out.println("Tu balance actual es de : " + TransaccionDAO.getBalanceActual() + "€");
+        System.out.println("Introduce tu nuevo balance actual.");
+        Double nuevoBalance = scanner.nextDouble();
+        Double transaccionValue = nuevoBalance - TransaccionDAO.getBalanceActual();
+        try {
+            TransaccionDAO.insert(new Transaccion(transaccionValue, "Transaccion creada para corregir el balance actual.", 1));
+            System.out.println("Transaccion creada para corregir el balance actual. El nuevo balance es de: " + TransaccionDAO.getBalanceActual() + "€");
+        } catch (Exception e) {
+            System.out.println("Error al crear la transaccion para corregir el balance actual: " + e.getMessage());
+        }
+    }
+    public static void verBalanceActual(){
+        System.out.println("Tu balance actual es de : " + TransaccionDAO.getBalanceActual() + "€");
+    }
+    public static void verHistorialTransacciones(){
+        System.out.println("Estas son las transacciones realizadas:");
+        System.out.println("-------------------------------------");
+        TransaccionView.viewHistorial(TransaccionDAO.getAll());
+        System.out.println("-------------------------------------");
+    }
+    public static void describeTransaccion(){
+        System.out.println("Estas son las transacciones realizadas:");
+        TransaccionView.viewHistorial(TransaccionDAO.getAll());
+        System.out.println("Introduce el ID de la transaccion cuya informacion quieres ver.");
+        int id = scanner.nextInt();
+        if(idToTransaccion(id) != null)
+            idToTransaccion(id).details();
+        else
+            System.out.println("El ID introducido no corresponde a ninguna transaccion. Volviendo al menu de transacciones...");
+    }
+    public static void deleteTransaccion(){
+        System.out.println("Estas son las transacciones realizadas:");
+        TransaccionView.viewHistorial(TransaccionDAO.getAll());
+        System.out.println("AVISO!!: Eliminar una transaccion alterara el balance actual.");
+        System.out.println("Introduce el ID de la transaccion que quieres eliminar.");
+        int id = scanner.nextInt();
+        if(idToTransaccion(id) != null)
+            TransaccionDAO.delete(idToTransaccion(id));
+        else
+            System.out.println("El ID introducido no corresponde a ninguna transaccion. Volviendo al menu de transacciones...");
+    }
+    public static void newTransaccion(){
+        int tipo;
+        int id_variable = 0;
+        showAllTiposTransaccion();
+        System.out.println("Introduce el tipo de transaccion que quieres realizar: ");
+        do { 
+            tipo = scanner.nextInt();
+            if(tipo<1||tipo>4) System.err.println("El tipo de transaccion introducido no esta en el rango permitido, prueba de nuevo.");
+        } while (tipo<1||tipo>4);
+        if(tipo == 3 || tipo == 4){
+            System.out.println("El tipo de transaccion seleccionado va vinculado a un " +(tipo == 3 ? "pago de un cliente" : "pago a un proveedor")+", por lo que tienes que introducir un ID vinculante.");
+            showUnlinkedList(tipo);
+            System.out.println("Introduce el ID al que quieres vincular la transaccion.");
+            boolean continuar;
+            do { 
+                continuar = true;
+                id_variable = scanner.nextInt();
+                if(TransaccionDAO.searchByLinkedEvent(tipo, id_variable) != null) continuar = false;
+                if(tipo == 3 && idToCita(id_variable) == null) continuar = false;
+                else if(tipo == 4 && idToPedido(id_variable) == null) continuar = false;
+                if(!continuar) System.out.println("El ID introducido no esta en la lista dada. Prueba de nuevo.");
+            } while (!continuar);
+        }
+        System.out.println("Introduce la cantidad de dinero.");
+        Double cantidad = scanner.nextDouble();
+        System.out.println("Introduce el concepto de la transaccion");
+        String concepto = scanner.nextLine();
+        
+        if(tipo == 1 || tipo == 2) TransaccionDAO.insert(new Transaccion(cantidad, concepto, tipo));
+        else TransaccionDAO.insert(new Transaccion(cantidad, concepto, tipo, id_variable));
+    }
+
+    public static Transaccion idToTransaccion(int id){
+        for(Transaccion transaccion : TransaccionDAO.getAll()){
+            if(transaccion.getId() == id) return transaccion;
+        }
+        return null;
+    }
+    public static void showUnlinkedList(int tipo){
+        if(tipo == 3){
+            System.out.println("Estos son las citas de clientes no vinculadas: ");
+            CitaView.viewUnlinked(CitaDAO.getAll(), TransaccionDAO.getAll());
+        }
+        else{
+            System.out.println("Estos son los pedidos de proveedores no vinculados: ");
+            PedidoView.viewUnlinked(PedidoDAO.getAll(), TransaccionDAO.getAll());
+        }
     }
 }

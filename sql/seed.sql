@@ -89,13 +89,10 @@ CREATE TABLE transaccion(
     concepto VARCHAR(200) NOT NULL,
     fecha DATE NOT NULL,
     tipo INT NOT NULL,
-    FOREIGN KEY (tipo) REFERENCES tipos_transaccion(id)
-);
-CREATE TABLE transaccion_aux(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_transaccion INT NOT NULL,
-    FOREIGN KEY (id_transaccion) REFERENCES transaccion(id),
-    id_variable INT NOT NULL
+    FOREIGN KEY (tipo) REFERENCES tipos_transaccion(id),
+    id_variable INT
 );
 INSERT INTO tipos_transaccion (id,name) VALUES (1, "Transaccion de correccion manual desde el programa de gestion");
 INSERT INTO tipos_transaccion (id,name) VALUES (2, "Transaccion sin tipo especifico");
+INSERT INTO tipos_transaccion (id,name) VALUES (3, "Pago de servicio");
+INSERT INTO tipos_transaccion (id,name) VALUES (4, "Pago a proveedor");
