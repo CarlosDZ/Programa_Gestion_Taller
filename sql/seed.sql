@@ -97,4 +97,5 @@ CREATE TABLE transaccion_aux(
     FOREIGN KEY (id_transaccion) REFERENCES transaccion(id),
     id_variable INT NOT NULL
 );
-INSERT INTO tipos_transaccion (id,name) VALUES (0, "Transaccion de correccion manual desde el programa de gestion")
+INSERT INTO tipos_transaccion (id,name) VALUES (1, "Transaccion de correccion manual desde el programa de gestion");
+INSERT INTO tipos_transaccion (id,name) VALUES (2, "Transaccion sin tipo especifico");

@@ -715,7 +715,7 @@ public class Taller {
         System.out.println("Introduce el ID del tipo de transaccion que quieres eliminar.");
         int id = scanner.nextInt();
         TipoTransaccion toDelete = idToTipoTransaccion(id);
-        if(id == 0) System.out.println("Este tipo de transaccion existe, pero no se puede borrar ya que es un tipo creado automaticamente y relacionado con el funcionamiento del programa.");
+        if(id == 1 || id == 2) System.out.println("Este tipo de transaccion existe, pero no se puede borrar ya que es un tipo creado automaticamente y relacionado con el funcionamiento del programa.");
         else if(toDelete != null) {
             TipoTransaccionDAO.delete(toDelete);
             System.out.println("Tipo de transaccion eliminado.");

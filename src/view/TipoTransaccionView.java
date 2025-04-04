@@ -6,7 +6,7 @@ import model.TipoTransaccion;
 public class TipoTransaccionView {
     public static void quickGeneralView(ArrayList<TipoTransaccion> tiposTransaccion){
         for(TipoTransaccion tipoTransaccion : tiposTransaccion){
-            if(tipoTransaccion.getId() != 0)
+            if(tipoTransaccion.getId() != 1 && tipoTransaccion.getId() != 2)
                 System.out.println(tipoTransaccion.getId() + " - " + tipoTransaccion.getNombre());
         }
     }
