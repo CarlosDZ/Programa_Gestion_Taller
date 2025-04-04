@@ -80,3 +80,21 @@ CREATE TABLE pedidos_aux(
     FOREIGN KEY (id_objeto) REFERENCES objeto(id),
     cantidad INT NOT NULL DEFAULT 0
 );
+CREATE TABLE tipos_transaccion(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+CREATE TABLE transaccion(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cantidad DOUBLE(10, 2) NOT NULL,
+    concepto VARCHAR(200) NOT NULL,
+    fecha DATE NOT NULL,
+    tipo INT NOT NULL,
+    FOREIGN KEY (tipo) REFERENCES tipos_transaccion(id)
+);
+CREATE TABLE transaccion_aux(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_transaccion INT NOT NULL,
+    FOREIGN KEY (id_transaccion) REFERENCES transaccion(id),
+    id_variable INT NOT NULL
+);

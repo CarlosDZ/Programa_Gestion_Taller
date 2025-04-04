@@ -691,4 +691,41 @@ public class Taller {
         else
             System.out.println("El ID introducido no corresponde a ningun pedido. Volviendo al menu de pedidos...");
     }
+
+    public static void showAllTiposTransaccion(){
+        ArrayList<TipoTransaccion> lista_tiposTransaccion = TipoTransaccionDAO.getAll();
+        if(!lista_tiposTransaccion.isEmpty()){
+            System.out.println("Estos son los tipos de transacciones disponibles:");
+            System.out.println("-------------------------------------");
+            TipoTransaccionView.quickGeneralView(lista_tiposTransaccion);
+            System.out.println("-------------------------------------");
+        }
+        else
+            System.out.println("La lista de tipos de transacciones de la base de datos esta vacia.");
+    }
+    public static void newTipoTransaccion(){
+        System.out.println("Introduce el nombre del nuevo tipo de transaccion.");
+        String name = scanner.nextLine();
+        TipoTransaccion toInsert = new TipoTransaccion(name);
+        TipoTransaccionDAO.insert(toInsert);
+        System.out.println("Tipo de transaccion añadido a la base de datos.");
+    }
+    public static void delTipoTransaccion(){
+        showAllTiposTransaccion();
+        System.out.println("Introduce el ID del tipo de transaccion que quieres eliminar.");
+        int id = scanner.nextInt();
+        TipoTransaccion toDelete = idToTipoTransaccion(id);
+        if(toDelete != null) {
+            TipoTransaccionDAO.delete(toDelete);
+            System.out.println("Tipo de transaccion eliminado.");
+        }
+        else
+            System.out.println("No hay ningun tipo de transaccion con ese ID en la base de datos.");
+    }
+    public static TipoTransaccion idToTipoTransaccion(int id){
+        for(TipoTransaccion tipoTransaccion : TipoTransaccionDAO.getAll()){
+            if(tipoTransaccion.getId() == id) return tipoTransaccion;
+        }
+        return null;
+    }
 }
