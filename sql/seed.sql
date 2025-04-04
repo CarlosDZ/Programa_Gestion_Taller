@@ -11,6 +11,14 @@ CREATE TABLE clientes(
     entity_type CHAR
 );
 
+CREATE TABLE marcas(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
+CREATE TABLE tipos_vehiculos(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL
+);
 CREATE TABLE vehiculos(
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_brand INT NOT NULL,
@@ -24,15 +32,11 @@ CREATE TABLE vehiculos(
     FOREIGN KEY (id_type) REFERENCES tipos_vehiculos(id)
 );
 
-CREATE TABLE marcas(
+CREATE TABLE servicios(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
+    name VARCHAR(100) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL
 );
-CREATE TABLE tipos_vehiculos(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
-);
-
 CREATE TABLE citas(
     id INT AUTO_INCREMENT PRIMARY KEY,
     vehicle_id INT NOT NULL,
@@ -42,12 +46,6 @@ CREATE TABLE citas(
     service_id INT NOT NULL,
     FOREIGN KEY (service_id) REFERENCES servicios(id),
     compleated BOOLEAN DEFAULT FALSE
-);
-
-CREATE TABLE servicios(
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL
 );
 
 CREATE TABLE proveedores(
