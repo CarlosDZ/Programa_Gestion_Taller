@@ -1,12 +1,13 @@
 package view;
 
-import model.TipoTransaccion;
 import java.util.ArrayList;
+import model.TipoTransaccion;
 
 public class TipoTransaccionView {
     public static void quickGeneralView(ArrayList<TipoTransaccion> tiposTransaccion){
         for(TipoTransaccion tipoTransaccion : tiposTransaccion){
-            System.out.println(tipoTransaccion.getId() + " - " + tipoTransaccion.getNombre());
+            if(tipoTransaccion.getId() != 0)
+                System.out.println(tipoTransaccion.getId() + " - " + tipoTransaccion.getNombre());
         }
     }
 }
