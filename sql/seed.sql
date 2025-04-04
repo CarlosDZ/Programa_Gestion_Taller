@@ -81,7 +81,7 @@ CREATE TABLE pedidos_aux(
 );
 CREATE TABLE tipos_transaccion(
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL
+    nombre VARCHAR(100) NOT NULL
 );
 CREATE TABLE transacciones(
     id INT AUTO_INCREMENT PRIMARY KEY,
